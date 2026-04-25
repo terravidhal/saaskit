@@ -54,26 +54,7 @@ npx shadcn add @saaskit/usage-meter
 - **Vercel** — Déploiement
 - **MDX** — Documentation
 
-## Roadmap
 
-### Phase 1 — Semaine 1-2 (en cours)
-- [x] Repo Next.js + configuration registry.json
-- [x] 10 composants prioritaires
-- [x] Site de documentation avec previews live
-- [ ] Déploiement sur Vercel
-- [ ] Soumission au directory shadcn/ui
-
-### Phase 2 — Semaine 3-4
-- [ ] Documentation MDX complète
-- [ ] Tests de composants
-- [ ] Soumission officielle au directory shadcn/ui
-
-### Phase 3 — Mois 2+
-- [ ] Composants premium (payants)
-- [ ] Thèmes personnalisés
-- [ ] Blocs complets (pages entières)
-- [ ] SEO + newsletter
-- [ ] Communauté Discord
 
 ## Développement local
 

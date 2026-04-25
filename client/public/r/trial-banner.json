@@ -1,0 +1,22 @@
+{
+  "name": "trial-banner",
+  "type": "registry:component",
+  "dependencies": [
+    "lucide-react",
+    "react-i18next"
+  ],
+  "files": [
+    {
+      "path": "components/saaskit/trial-banner.tsx",
+      "content": "import { useState } from \"react\";\nimport { X, Clock, Zap } from \"lucide-react\";\nimport { useTranslation } from \"react-i18next\";\nimport { cn } from \"@/lib/utils\";\n\ninterface TrialBannerProps {\n  daysRemaining: number;\n  onUpgrade?: () => void;\n  onDismiss?: () => void;\n  planName?: string;\n  className?: string;\n}\n\nexport function TrialBanner({\n  daysRemaining,\n  onUpgrade,\n  onDismiss,\n  planName = \"Pro\",\n  className,\n}: TrialBannerProps) {\n  const { t } = useTranslation();\n  const [dismissed, setDismissed] = useState(false);\n\n  if (dismissed) return null;\n\n  const urgency = daysRemaining <= 3 ? \"danger\" : daysRemaining <= 7 ? \"warn\" : \"normal\";\n\n  const handleDismiss = () => {\n    setDismissed(true);\n    onDismiss?.();\n  };\n\n  const getMessage = () => {\n    if (daysRemaining === 0) return t(\"components.trialBanner.expireToday\");\n    if (daysRemaining === 1) return t(\"components.trialBanner.oneDayLeft\");\n    return t(\"components.trialBanner.daysLeft\", { count: daysRemaining });\n  };\n\n  return (\n    <div\n      className={cn(\n        \"relative flex items-center justify-between gap-3 px-4 py-2.5 text-sm\",\n        urgency === \"danger\" && \"bg-destructive/15 border-b border-destructive/30\",\n        urgency === \"warn\" && \"bg-yellow-500/10 border-b border-yellow-500/20\",\n        urgency === \"normal\" && \"bg-primary/10 border-b border-primary/20\",\n        className\n      )}\n    >\n      <div className=\"flex items-center gap-2 min-w-0\">\n        <Clock\n          className={cn(\n            \"h-4 w-4 flex-shrink-0\",\n            urgency === \"danger\" && \"text-destructive\",\n            urgency === \"warn\" && \"text-yellow-400\",\n            urgency === \"normal\" && \"text-primary\"\n          )}\n        />\n        <span\n          className={cn(\n            \"font-medium\",\n            urgency === \"danger\" && \"text-destructive\",\n            urgency === \"warn\" && \"text-yellow-400\",\n            urgency === \"normal\" && \"text-primary\"\n          )}\n        >\n          {getMessage()}\n        </span>\n        <span className=\"text-muted-foreground hidden sm:inline\">\n          {t(\"components.trialBanner.upgradeContinue\", { plan: planName })}\n        </span>\n      </div>\n\n      <div className=\"flex items-center gap-2 flex-shrink-0\">\n        <button\n          onClick={onUpgrade}\n          className={cn(\n            \"flex items-center gap-1.5 text-xs font-semibold px-3 py-1.5 rounded-md transition-colors\",\n            urgency === \"danger\" && \"bg-destructive text-white hover:bg-destructive/90\",\n            urgency === \"warn\" && \"bg-yellow-500 text-black hover:bg-yellow-400\",\n            urgency === \"normal\" && \"bg-primary text-primary-foreground hover:opacity-90\"\n          )}\n        >\n          <Zap className=\"h-3 w-3\" />\n          {t(\"components.trialBanner.upgradeBtn\", { plan: planName })}\n        </button>\n        <button\n          onClick={handleDismiss}\n          className=\"p-1 rounded hover:bg-white/10 text-muted-foreground hover:text-foreground transition-colors\"\n          aria-label={t(\"components.trialBanner.close\")}\n        >\n          <X className=\"h-4 w-4\" />\n        </button>\n      </div>\n    </div>\n  );\n}\n",
+      "type": "registry:component",
+      "target": "components/saaskit/trial-banner.tsx"
+    }
+  ],
+  "title": "TrialBanner",
+  "description": "Bandeau J jours restants avec CTA upgrade",
+  "categories": [
+    "conversion",
+    "saas"
+  ]
+}
