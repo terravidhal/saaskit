@@ -1,0 +1,478 @@
+{
+  "nav": {
+    "docs": "Docs",
+    "github": "GitHub"
+  },
+  "hero": {
+    "badge": "Phase 1 — 10 components",
+    "title": "The shadcn/ui registry for <1>B2B SaaS products</1>",
+    "subtitle": "10 essential components — pricing, trial, usage, onboarding, billing — ready to use. Installable in one command. Zero external dependencies.",
+    "getStarted": "Get Started",
+    "github": "GitHub"
+  },
+  "stats": {
+    "components": "Components",
+    "usage": "SaaS use cases",
+    "installTime": "Install time",
+    "zeroDeps": "Zero dependency"
+  },
+  "features": {
+    "title": "Why @saaskit?",
+    "subtitle": "Built by SaaS developers, for SaaS developers.",
+    "items": {
+      "npx": {
+        "title": "Installable via npx",
+        "description": "Each component installs in one shadcn/ui command. Zero extra dependencies."
+      },
+      "ts": {
+        "title": "TypeScript + Tailwind",
+        "description": "Fully typed, styled with Tailwind CSS v4. Production ready."
+      },
+      "saas": {
+        "title": "Optimized for SaaS",
+        "description": "Designed specifically for B2B patterns: pricing, billing, team, feature gates."
+      },
+      "responsive": {
+        "title": "Accessible & Responsive",
+        "description": "Based on Radix UI. Works on all devices, all browsers."
+      },
+      "growth": {
+        "title": "Ready for growth",
+        "description": "Components designed to maximize conversions and reduce churn."
+      },
+      "oss": {
+        "title": "Open Source",
+        "description": "Transparent source code, active community, contributions welcome."
+      }
+    }
+  },
+  "showcase": {
+    "title": "10 essential components",
+    "subtitle": "Covering all critical use cases of the SaaS lifecycle.",
+    "viewAll": "View all components"
+  },
+  "testimonials": {
+    "title": "Loved by developers",
+    "subtitle": "See what users are saying about @saaskit.",
+    "alice": {
+      "quote": "@saaskit saved me 3 weeks of development. The components are perfect for our SaaS.",
+      "name": "Alice Martin",
+      "title": "Founder @ StartupXYZ"
+    },
+    "bob": {
+      "quote": "Finally a B2B-oriented shadcn registry! Exactly what we needed.",
+      "name": "Bob Dupont",
+      "title": "CTO @ TechCorp"
+    },
+    "charlie": {
+      "quote": "The components are beautiful, accessible, and easy to customize. Recommended!",
+      "name": "Charlie Lee",
+      "title": "Designer @ DesignStudio"
+    }
+  },
+  "cta": {
+    "title": "Ready to start?",
+    "subtitle": "Install your first component in less than a minute. Zero configuration.",
+    "button": "Start now"
+  },
+  "intro": {
+    "title": "The shadcn/ui registry for <1>B2B SaaS products</1>.",
+    "subtitle": "10 essential components — pricing, trial, usage, onboarding, billing — ready to use, installable in one command.",
+    "install": "Installation",
+    "explore": "Explore components",
+    "guide": "Installation guide"
+  },
+  "docs": {
+    "labels": {
+      "installation": "Installation",
+      "preview": "Preview",
+      "usage": "Usage",
+      "props": "Props",
+      "default": "Default",
+      "notes": "Notes",
+      "prev": "Previous",
+      "next": "Next"
+    },
+    "pricingTable": {
+      "category": "Monetization",
+      "description": "Complete pricing table with monthly/annual toggle, highlighted recommended plan, and feature comparison table. Designed to maximize conversions.",
+      "props": {
+        "features": "List of features to compare in the table.",
+        "onSelectPlan": "Callback triggered when a plan is clicked.",
+        "className": "Additional CSS classes."
+      },
+      "notes": [
+        "The Pro plan is automatically highlighted with a 'Recommended' badge and emerald border.",
+        "The monthly/annual toggle applies a 20% discount on annual prices.",
+        "Boolean values in features display a ✓ (true) or — (false) icon."
+      ]
+    },
+    "trialBanner": {
+      "category": "Conversion",
+      "description": "Alert banner displayed at the top of the application indicating the number of days remaining in the trial period. Adapts its color based on urgency (normal / warn / danger).",
+      "props": {
+        "daysRemaining": "Number of days remaining in the trial period.",
+        "planName": "Name of the plan to upgrade to.",
+        "onUpgrade": "Callback triggered when the CTA is clicked.",
+        "onDismiss": "Callback triggered when the banner is closed.",
+        "className": "Additional CSS classes."
+      },
+      "notes": [
+        "Normal (> 7 days): discrete emerald banner.",
+        "Warn (≤ 7 days): yellow warning banner.",
+        "Danger (≤ 3 days): urgent red banner.",
+        "The banner can be closed by the user (local state)."
+      ]
+    },
+    "usageMeter": {
+      "category": "Usage",
+      "description": "Visual progress bar to track resource consumption (API calls, storage, credits). Automatically handles threshold alerts.",
+      "props": {
+        "label": "Label of the measured resource.",
+        "used": "Amount consumed.",
+        "limit": "Total allowed limit.",
+        "unit": "Unit of measurement (e.g., GB, req).",
+        "warnThreshold": "Yellow alert threshold (0-100).",
+        "dangerThreshold": "Red alert threshold (0-100).",
+        "showUpgrade": "Displays the 'Increase' button.",
+        "onUpgrade": "Callback for upgrade."
+      },
+      "notes": [
+        "The bar automatically changes color based on thresholds (emerald -> yellow -> red).",
+        "Alert subtext only shows when a threshold is exceeded.",
+        "Uses formatNumber to display k/M beyond 1000/1M."
+      ]
+    },
+    "onboardingSteps": {
+      "category": "Activation",
+      "description": "Interactive checklist to guide new users through account configuration. Includes a global progress bar.",
+      "props": {
+        "steps": "List of steps with title, description, and action.",
+        "onStepComplete": "Callback when a step is validated.",
+        "onStepSkip": "Callback when a step is skipped.",
+        "onAllComplete": "Callback when all steps are completed."
+      },
+      "notes": [
+        "The next incomplete step is automatically expanded when a step is finished.",
+        "Displays a congratulations state once everything is completed.",
+        "Supports skipping steps (skippable) with a different visual style."
+      ]
+    },
+    "upgradeModal": {
+      "category": "Upsell",
+      "description": "Persuasive modal window to encourage users to upgrade to a higher plan when they encounter a limit or a locked feature.",
+      "props": {
+        "featureName": "Name of the feature that triggered the modal.",
+        "targetPlan": "The plan the user needs to upgrade to.",
+        "features": "Custom list of plan benefits.",
+        "currentPlan": "User's current plan."
+      },
+      "notes": [
+        "Adapts dynamically if triggered by a specific feature (feature gating).",
+        "Design focused on clarity of benefits and simplicity of action.",
+        "Integrates the 20% annual discount logic."
+      ]
+    },
+    "teamInvite": {
+      "category": "Collaboration",
+      "description": "Complete team management interface: email invitation with role selection, active member list, pending invitations, and revocation.",
+      "props": {
+        "members": "List of active members.",
+        "pendingInvites": "Pending invitations.",
+        "onInvite": "Invitation callback (async supported).",
+        "onRevokeInvite": "Invitation revocation callback.",
+        "onChangeMemberRole": "Role change callback.",
+        "maxMembers": "Member limit (displays a message if reached)."
+      },
+      "notes": [
+        "Three available roles: Admin (full access), Member (create/edit), Viewer (read-only).",
+        "Email validation is integrated with error messages.",
+        "When maxMembers is reached, the invitation form is replaced by an upgrade CTA."
+      ]
+    },
+    "invoiceRow": {
+      "category": "Billing",
+      "description": "Invoice list component with color-coded statuses (paid, pending, failed, refunded), formatted amounts, and download/view actions.",
+      "props": {
+        "amount": "Amount in cents (2900 = $29.00).",
+        "status": "Invoice status.",
+        "currency": "ISO 4217 currency code.",
+        "onDownload": "Download callback.",
+        "onView": "View callback."
+      },
+      "notes": [
+        "Amounts are formatted using Intl.NumberFormat based on the currency.",
+        "Actions (download, view) appear on row hover.",
+        "InvoiceList displays an empty state if the list is empty."
+      ]
+    },
+    "planBadge": {
+      "category": "Identity",
+      "description": "Compact badge displaying the user's current plan (Free, Trial, Pro, Enterprise). Available in three sizes and with a CTA variant to encourage upgrading.",
+      "props": {
+        "plan": "Plan to display.",
+        "size": "Badge size.",
+        "showIcon": "Shows or hides the icon.",
+        "onClick": "Makes the badge clickable."
+      },
+      "notes": [
+        "PlanBadgeWithCTA displays an 'Upgrade to Pro' link for free and trial plans.",
+        "The badge uses the plan-badge-* CSS classes defined in index.css."
+      ]
+    },
+    "apiKeyCard": {
+      "category": "Developer",
+      "description": "API key display card with default masking, on-demand reveal, one-click copy, and secure rotation with confirmation.",
+      "props": {
+        "name": "API key name.",
+        "keyValue": "Key value (masked by default).",
+        "environment": "Key environment.",
+        "createdAt": "Creation date.",
+        "lastUsedAt": "Last used date.",
+        "onRotate": "Rotation callback (async). Triggers a confirmation.",
+        "onCopy": "Callback after copying.",
+        "onRevoke": "Revocation callback."
+      },
+      "notes": [
+        "Rotation requires double confirmation to avoid errors.",
+        "The key is masked by default, only the prefix and last 4 characters are visible.",
+        "The Copy button provides visual feedback for 2 seconds."
+      ]
+    },
+    "featureGate": {
+      "category": "Permissions",
+      "description": "Declarative wrapper that controls access to a feature based on the user's plan. Supports multiple blocking modes: overlay, blur, replace, or hide.",
+      "props": {
+        "currentPlan": "User's current plan.",
+        "requiredPlans": "Plans allowed to access.",
+        "children": "Content to display if access is allowed.",
+        "mode": "Blocking mode.",
+        "featureName": "Feature name (displayed in the message).",
+        "requiredPlan": "Minimum plan (for the CTA).",
+        "onUpgrade": "Upgrade CTA callback.",
+        "fallback": "Custom replacement content (replace mode)."
+      },
+      "notes": [
+        "Overlay mode: content is visible but covered by a blocking panel.",
+        "Blur mode: content is blurred and semi-transparent.",
+        "Replace mode: content is replaced by an upgrade message.",
+        "Hide mode: content is simply hidden (null).",
+        "The useFeatureAccess and usePlanAccess hooks are available for conditional logic."
+      ]
+    }
+  },
+  "highlights": {
+    "npx": "Installable via npx shadcn add",
+    "ts": "TypeScript + Tailwind CSS v4",
+    "saas": "B2B SaaS-oriented components",
+    "dark": "Native dark mode",
+    "radix": "Accessible (Radix UI)",
+    "deps": "Zero external dependencies"
+  },
+  "philosophy": {
+    "title": "Philosophy & Principles",
+    "dx": {
+      "title": "Developer Experience",
+      "description": "Unitary installation via shadcn CLI. Zero extra npm dependencies. 100% modifiable source code in your project."
+    },
+    "saas": {
+      "title": "SaaS B2B Patterns",
+      "description": "Components designed specifically for SaaS challenges: maximizing conversion, managing usage, and securing access."
+    },
+    "brutalism": {
+      "title": "Soft Brutalism",
+      "description": "A bold aesthetic that combines the robustness of brutalism with the finesse of a modern, readable product interface."
+    }
+  },
+  "footer": {
+    "builtBy": "© {{year}} Saaskit by Vidhal Elame. MIT License."
+  },
+  "sidebar": {
+    "intro": "Introduction",
+    "install": "Installation",
+    "categories": {
+      "start": "Getting Started",
+      "components": "Components"
+    },
+    "theme": "Theme",
+    "language": "Language",
+    "registry": "shadcn registry"
+  },
+  "installPage": {
+    "title": "Installation",
+    "description": "@saaskit is a shadcn/ui registry. Components are installed directly into your project via the shadcn CLI — no extra npm dependencies.",
+    "prerequisites": "Prerequisites",
+    "step1": {
+      "title": "1. Initialize shadcn/ui",
+      "description": "If shadcn/ui is not yet configured in your project:"
+    },
+    "step2": {
+      "title": "2. Install a @saaskit component",
+      "description": "Each component is installed individually via the shadcn CLI:"
+    },
+    "step3": {
+      "title": "3. Use the component",
+      "description": "The component is copied to your components/ folder. Import it directly:",
+      "fileStructure": "File structure"
+    },
+    "exploreNext": "Explore the first component — PricingTable"
+  },
+  "common": {
+    "category": {
+      "monetization": "Monetization",
+      "conversion": "Conversion",
+      "usage": "Usage",
+      "activation": "Activation",
+      "upsell": "Upsell",
+      "collaboration": "Collaboration",
+      "billing": "Billing",
+      "identity": "Identity",
+      "developer": "Developer",
+      "permissions": "Permissions"
+    },
+    "plans": {
+      "free": "Free",
+      "trial": "Trial",
+      "pro": "Pro",
+      "enterprise": "Enterprise"
+    }
+  },
+  "components": {
+    "pricingTable": {
+      "monthly": "Monthly",
+      "annual": "Annual",
+      "recommended": "Recommended",
+      "free": "FREE",
+      "pro": "PRO",
+      "enterprise": "ENTERPRISE",
+      "perMonth": "/month",
+      "startFree": "Start for free",
+      "upgradePro": "Upgrade to Pro",
+      "contactSales": "Contact sales",
+      "feature": "Feature",
+      "billedAnnual": "Billed {{amount}}/year",
+      "defaultDesc": {
+        "free": "To get started and test.",
+        "pro": "For growing teams.",
+        "enterprise": "For large organizations."
+      },
+      "features": {
+        "projects": "Active Projects",
+        "team": "Team Members",
+        "api": "API Calls / month",
+        "storage": "Storage",
+        "support": "Priority Support",
+        "sso": "SSO / SAML",
+        "audit": "Audit logs",
+        "sla": "Guaranteed SLA"
+      }
+    },
+    "trialBanner": {
+      "expireToday": "Your trial expires today",
+      "oneDayLeft": "1 day left in your trial",
+      "daysLeft": "{{count}} days left in your trial",
+      "upgradeContinue": "— Upgrade to {{plan}} plan to continue without interruption.",
+      "upgradeBtn": "Upgrade to {{plan}}",
+      "close": "Close"
+    },
+    "usageMeter": {
+      "limitDanger": "Limit almost reached — new requests will be blocked.",
+      "limitWarn": "You are approaching your monthly limit.",
+      "increase": "Increase",
+      "steps": "{{count}} steps",
+      "onboardingTitle": "Getting started",
+      "monthUsage": "Usage this month",
+      "demo": {
+        "api": "API Calls",
+        "storage": "Storage",
+        "team": "Active Members",
+        "webhooks": "Webhooks"
+      }
+    },
+    "onboardingSteps": {
+      "complete": "Setup complete!",
+      "completeDesc": "You are ready to use all features.",
+      "steps": "{{completed}}/{{total}} steps",
+      "markDone": "Mark as done",
+      "skip": "Skip",
+      "demo": {
+        "profile": {
+          "title": "Complete your profile",
+          "desc": "Add your name, photo and contact information to personalize your space.",
+          "btn": "Go to profile"
+        },
+        "workspace": {
+          "title": "Create your first workspace",
+          "desc": "Organize your projects in dedicated workspaces for your team.",
+          "btn": "Create workspace"
+        },
+        "invite": {
+          "title": "Invite members",
+          "desc": "Collaborate by inviting your colleagues to join your workspace.",
+          "btn": "Invite members"
+        },
+        "api": {
+          "title": "Generate your first API key",
+          "desc": "Integrate our API into your applications with a secure authentication key.",
+          "btn": "Generate key"
+        }
+      }
+    },
+    "upgradeModal": {
+      "title": "Upgrade to a higher plan",
+      "subtitle": "Unlock more features and push the limits of your project.",
+      "featureTitle": "What you get:",
+      "cta": "Upgrade to {{plan}}",
+      "openPreview": "Open UpgradeModal"
+    },
+    "teamInvite": {
+      "title": "Invite members",
+      "subtitle": "Collaborate with your team by inviting new members.",
+      "emailLabel": "Email address",
+      "roleLabel": "Role",
+      "sendInvite": "Send invitation",
+      "roles": {
+        "admin": "Administrator",
+        "member": "Member",
+        "viewer": "Viewer"
+      }
+    },
+    "invoiceRow": {
+      "download": "Download",
+      "status": {
+        "paid": "Paid",
+        "pending": "Pending",
+        "void": "Void"
+      }
+    },
+    "apiKeyCard": {
+      "title": "API Keys",
+      "reveal": "Reveal",
+      "hide": "Hide",
+      "copy": "Copy",
+      "copied": "Copied",
+      "rotate": "Rotate",
+      "rotateWarn": "Rotating the key will immediately invalidate the old one.",
+      "demo": {
+        "prod": "Production Key",
+        "dev": "Development Key"
+      }
+    },
+    "featureGate": {
+      "locked": "Locked feature",
+      "lockedDesc": "This feature is available in the {{plan}} plan.",
+      "upgrade": "Upgrade to a higher plan",
+      "demo": {
+        "overlay": "Overlay mode (Free plan)",
+        "replace": "Replace mode (Free plan)",
+        "allowed": "Access allowed (Pro plan)"
+      }
+    }
+  },
+  "notFound": {
+    "title": "Page Not Found",
+    "description": "Sorry, the page you are looking for doesn't exist.",
+    "subDescription": "It may have been moved or deleted.",
+    "goHome": "Go Home"
+  }
+}

@@ -1,0 +1,478 @@
+{
+  "nav": {
+    "docs": "Docs",
+    "github": "GitHub"
+  },
+  "hero": {
+    "badge": "Phase 1 — 10 composants",
+    "title": "La registry shadcn/ui pour les <1>produits B2B SaaS</1>",
+    "subtitle": "10 composants essentiels — pricing, trial, usage, onboarding, billing — prêts à l'emploi. Installables en une commande. Zéro dépendance externe.",
+    "getStarted": "Démarrer",
+    "github": "GitHub"
+  },
+  "stats": {
+    "components": "Composants",
+    "usage": "Cas d'usage SaaS",
+    "installTime": "Temps d'installation",
+    "zeroDeps": "Zéro dépendance"
+  },
+  "features": {
+    "title": "Pourquoi @saaskit ?",
+    "subtitle": "Conçu par des développeurs SaaS, pour des développeurs SaaS.",
+    "items": {
+      "npx": {
+        "title": "Installable via npx",
+        "description": "Chaque composant s'installe en une commande shadcn/ui. Zéro dépendance supplémentaire."
+      },
+      "ts": {
+        "title": "TypeScript + Tailwind",
+        "description": "Entièrement typé, stylisé avec Tailwind CSS v4. Prêt pour la production."
+      },
+      "saas": {
+        "title": "Optimisé pour SaaS",
+        "description": "Conçu spécifiquement pour les patterns B2B : pricing, billing, team, feature gates."
+      },
+      "responsive": {
+        "title": "Accessible & Responsive",
+        "description": "Basé sur Radix UI. Fonctionne sur tous les appareils, tous les navigateurs."
+      },
+      "growth": {
+        "title": "Prêt pour la croissance",
+        "description": "Composants conçus pour maximiser les conversions et réduire le churn."
+      },
+      "oss": {
+        "title": "Open Source",
+        "description": "Code source transparent, communauté active, contributions bienvenues."
+      }
+    }
+  },
+  "showcase": {
+    "title": "10 composants essentiels",
+    "subtitle": "Couvrant tous les cas d'usage critiques du cycle de vie SaaS.",
+    "viewAll": "Voir tous les composants"
+  },
+  "testimonials": {
+    "title": "Aimé par les développeurs",
+    "subtitle": "Découvrez ce que les utilisateurs disent de @saaskit.",
+    "alice": {
+      "quote": "@saaskit m'a fait gagner 3 semaines de développement. Les composants sont parfaits pour notre SaaS.",
+      "name": "Alice Martin",
+      "title": "Fondatrice @ StartupXYZ"
+    },
+    "bob": {
+      "quote": "Enfin une registry shadcn orientée B2B ! Exactement ce qu'il nous fallait.",
+      "name": "Bob Dupont",
+      "title": "CTO @ TechCorp"
+    },
+    "charlie": {
+      "quote": "Les composants sont beaux, accessibles et faciles à customiser. Recommandé !",
+      "name": "Charlie Lee",
+      "title": "Designer @ DesignStudio"
+    }
+  },
+  "cta": {
+    "title": "Prêt à démarrer ?",
+    "subtitle": "Installez votre premier composant en moins d'une minute. Zéro configuration.",
+    "button": "Commencer maintenant"
+  },
+  "intro": {
+    "title": "La registry shadcn/ui pour les <1>produits B2B SaaS</1>.",
+    "subtitle": "10 composants essentiels — pricing, trial, usage, onboarding, billing — prêts à l'emploi, installables en une commande.",
+    "install": "Installation",
+    "explore": "Explorer les composants",
+    "guide": "Guide d'installation"
+  },
+  "docs": {
+    "labels": {
+      "installation": "Installation",
+      "preview": "Aperçu",
+      "usage": "Utilisation",
+      "props": "Props",
+      "default": "Défaut",
+      "notes": "Notes",
+      "prev": "Précédent",
+      "next": "Suivant"
+    },
+    "pricingTable": {
+      "category": "Monétisation",
+      "description": "Table de prix complète avec toggle mensuel/annuel, mise en avant du plan recommandé et tableau de comparaison des fonctionnalités. Conçu pour maximiser les conversions.",
+      "props": {
+        "features": "Liste des fonctionnalités à comparer dans le tableau.",
+        "onSelectPlan": "Callback déclenché lors du clic sur un plan.",
+        "className": "Classes CSS additionnelles."
+      },
+      "notes": [
+        "Le plan Pro est automatiquement mis en avant avec un badge 'Recommandé' et une bordure emerald.",
+        "Le toggle mensuel/annuel applique une réduction de 20% sur les prix annuels.",
+        "Les valeurs boolean dans features affichent une icône ✓ (vrai) ou — (faux)."
+      ]
+    },
+    "trialBanner": {
+      "category": "Conversion",
+      "description": "Bandeau d'alerte affiché en haut de l'application indiquant le nombre de jours restants dans la période d'essai. Adapte sa couleur selon l'urgence (normal / warn / danger).",
+      "props": {
+        "daysRemaining": "Nombre de jours restants dans la période d'essai.",
+        "planName": "Nom du plan vers lequel upgrader.",
+        "onUpgrade": "Callback déclenché lors du clic sur le CTA.",
+        "onDismiss": "Callback déclenché lors de la fermeture du bandeau.",
+        "className": "Classes CSS additionnelles."
+      },
+      "notes": [
+        "Normal (> 7 jours) : bandeau emerald discret.",
+        "Warn (≤ 7 jours) : bandeau jaune d'avertissement.",
+        "Danger (≤ 3 jours) : bandeau rouge urgent.",
+        "Le bandeau peut être fermé par l'utilisateur (état local)."
+      ]
+    },
+    "usageMeter": {
+      "category": "Usage",
+      "description": "Barre de progression visuelle pour suivre la consommation des ressources (appels API, stockage, crédits). Gère automatiquement les alertes de seuil.",
+      "props": {
+        "label": "Libellé de la ressource mesurée.",
+        "used": "Quantité consommée.",
+        "limit": "Limite totale autorisée.",
+        "unit": "Unité de mesure (ex: GB, req).",
+        "warnThreshold": "Seuil d'alerte jaune (0-100).",
+        "dangerThreshold": "Seuil d'alerte rouge (0-100).",
+        "showUpgrade": "Affiche le bouton 'Augmenter'.",
+        "onUpgrade": "Callback pour l'upgrade."
+      },
+      "notes": [
+        "La barre change de couleur automatiquement selon les seuils (emerald -> jaune -> rouge).",
+        "Le sous-texte d'alerte s'affiche uniquement quand un seuil est dépassé.",
+        "Utilise formatNumber pour afficher k/M au-delà de 1000/1M."
+      ]
+    },
+    "onboardingSteps": {
+      "category": "Activation",
+      "description": "Checklist interactive pour guider les nouveaux utilisateurs dans la configuration de leur compte. Inclut une barre de progression globale.",
+      "props": {
+        "steps": "Liste des étapes avec titre, description et action.",
+        "onStepComplete": "Callback quand une étape est validée.",
+        "onStepSkip": "Callback quand une étape est ignorée.",
+        "onAllComplete": "Callback quand toutes les étapes sont faites."
+      },
+      "notes": [
+        "L'étape suivante incomplète est automatiquement dépliée quand une étape est finie.",
+        "Affiche un état de félicitations une fois que tout est complété.",
+        "Supporte le saut d'étapes (skippable) avec un style visuel différent."
+      ]
+    },
+    "upgradeModal": {
+      "category": "Upsell",
+      "description": "Fenêtre modale persuasive pour inciter les utilisateurs à passer à un plan supérieur quand ils rencontrent une limite ou une fonctionnalité verrouillée.",
+      "props": {
+        "featureName": "Nom de la fonctionnalité qui a déclenché la modal.",
+        "targetPlan": "Le plan vers lequel l'utilisateur doit passer.",
+        "features": "Liste personnalisée des avantages du plan.",
+        "currentPlan": "Plan actuel de l'utilisateur."
+      },
+      "notes": [
+        "S'adapte dynamiquement si elle est déclenchée par une fonctionnalité spécifique (feature gating).",
+        "Design axé sur la clarté des bénéfices et la simplicité de l'action.",
+        "Intègre la logique de réduction annuelle de 20%."
+      ]
+    },
+    "teamInvite": {
+      "category": "Collaboration",
+      "description": "Interface complète de gestion d'équipe : invitation par email avec sélection de rôle, liste des membres actifs, invitations en attente et révocation.",
+      "props": {
+        "members": "Liste des membres actifs.",
+        "pendingInvites": "Invitations en attente.",
+        "onInvite": "Callback d'invitation (async supporté).",
+        "onRevokeInvite": "Callback de révocation d'invitation.",
+        "onChangeMemberRole": "Callback de changement de rôle.",
+        "maxMembers": "Limite de membres (affiche un message si atteinte)."
+      },
+      "notes": [
+        "Trois rôles disponibles : Admin (accès complet), Membre (créer/modifier), Lecteur (lecture seule).",
+        "La validation d'email est intégrée avec messages d'erreur.",
+        "Quand maxMembers est atteint, le formulaire d'invitation est remplacé par un CTA d'upgrade."
+      ]
+    },
+    "invoiceRow": {
+      "category": "Billing",
+      "description": "Composant de liste de factures avec statuts colorés (payée, en attente, échouée, remboursée), montants formatés et actions de téléchargement/visualisation.",
+      "props": {
+        "amount": "Montant en centimes (2900 = 29,00 €).",
+        "status": "Statut de la facture.",
+        "currency": "Code devise ISO 4217.",
+        "onDownload": "Callback de téléchargement.",
+        "onView": "Callback de visualisation."
+      },
+      "notes": [
+        "Les montants sont formatés avec Intl.NumberFormat selon la devise.",
+        "Les actions (télécharger, voir) apparaissent au survol de la ligne.",
+        "InvoiceList affiche un état vide si la liste est vide."
+      ]
+    },
+    "planBadge": {
+      "category": "Identity",
+      "description": "Badge compact affichant le plan actuel de l'utilisateur (Free, Trial, Pro, Enterprise). Disponible en trois tailles et avec variante CTA pour inciter à l'upgrade.",
+      "props": {
+        "plan": "Plan à afficher.",
+        "size": "Taille du badge.",
+        "showIcon": "Affiche ou masque l'icône.",
+        "onClick": "Rend le badge cliquable."
+      },
+      "notes": [
+        "PlanBadgeWithCTA affiche un lien 'Passer au Pro' pour les plans free et trial.",
+        "Le badge utilise les classes CSS plan-badge-* définies dans index.css."
+      ]
+    },
+    "apiKeyCard": {
+      "category": "Developer",
+      "description": "Carte d'affichage de clé API avec masquage par défaut, révélation à la demande, copie en un clic et rotation sécurisée avec confirmation.",
+      "props": {
+        "name": "Nom de la clé API.",
+        "keyValue": "Valeur de la clé (masquée par défaut).",
+        "environment": "Environnement de la clé.",
+        "createdAt": "Date de création.",
+        "lastUsedAt": "Date de dernière utilisation.",
+        "onRotate": "Callback de rotation (async). Déclenche une confirmation.",
+        "onCopy": "Callback après copie.",
+        "onRevoke": "Callback de révocation."
+      },
+      "notes": [
+        "La rotation nécessite une double confirmation pour éviter les erreurs.",
+        "La clé est masquée par défaut, seuls le préfixe et les 4 derniers caractères sont visibles.",
+        "Le bouton Copier donne un feedback visuel pendant 2 secondes."
+      ]
+    },
+    "featureGate": {
+      "category": "Permissions",
+      "description": "Wrapper déclaratif qui contrôle l'accès à une fonctionnalité selon le plan de l'utilisateur. Supporte plusieurs modes de blocage : overlay, blur, replace ou hide.",
+      "props": {
+        "currentPlan": "Plan actuel de l'utilisateur.",
+        "requiredPlans": "Plans autorisés à accéder.",
+        "children": "Contenu à afficher si accès autorisé.",
+        "mode": "Mode de blocage.",
+        "featureName": "Nom de la fonctionnalité (affiché dans le message).",
+        "requiredPlan": "Plan minimum (pour le CTA).",
+        "onUpgrade": "Callback du CTA d'upgrade.",
+        "fallback": "Contenu de remplacement personnalisé (mode replace)."
+      },
+      "notes": [
+        "Mode overlay : le contenu est visible mais recouvert d'un panneau de blocage.",
+        "Mode blur : le contenu est flouté et semi-transparent.",
+        "Mode replace : le contenu est remplacé par un message d'upgrade.",
+        "Mode hide : le contenu est simplement masqué (null).",
+        "Les hooks useFeatureAccess et usePlanAccess sont disponibles pour la logique conditionnelle."
+      ]
+    }
+  },
+  "highlights": {
+    "npx": "Installable via npx shadcn add",
+    "ts": "TypeScript + Tailwind CSS v4",
+    "saas": "Composants orientés B2B SaaS",
+    "dark": "Dark mode natif",
+    "radix": "Accessible (Radix UI)",
+    "deps": "Zéro dépendance externe"
+  },
+  "philosophy": {
+    "title": "Philosophie & Principes",
+    "dx": {
+      "title": "Expérience Développeur",
+      "description": "Installation unitaire via CLI shadcn. Zéro dépendance npm supplémentaire. Code source 100% modifiable dans votre projet."
+    },
+    "saas": {
+      "title": "Patterns SaaS B2B",
+      "description": "Composants conçus spécifiquement pour les enjeux SaaS : maximiser la conversion, gérer l'usage et sécuriser les accès."
+    },
+    "brutalism": {
+      "title": "Brutalism Doux",
+      "description": "Une esthétique audacieuse qui combine la robustesse du brutalisme avec la finesse d'une interface produit moderne et lisible."
+    }
+  },
+  "footer": {
+    "builtBy": "© {{year}} Saaskit par Vidhal Elame. License MIT."
+  },
+  "sidebar": {
+    "intro": "Introduction",
+    "install": "Installation",
+    "categories": {
+      "start": "Démarrage",
+      "components": "Composants"
+    },
+    "theme": "Thème",
+    "language": "Langue",
+    "registry": "Registry shadcn"
+  },
+  "installPage": {
+    "title": "Installation",
+    "description": "@saaskit est une registry shadcn/ui. Les composants s'installent directement dans votre projet via la CLI shadcn — aucune dépendance npm supplémentaire.",
+    "prerequisites": "Prérequis",
+    "step1": {
+      "title": "1. Initialiser shadcn/ui",
+      "description": "Si shadcn/ui n'est pas encore configuré dans votre projet :"
+    },
+    "step2": {
+      "title": "2. Installer un composant @saaskit",
+      "description": "Chaque composant s'installe individuellement via la CLI shadcn :"
+    },
+    "step3": {
+      "title": "3. Utiliser le composant",
+      "description": "Le composant est copié dans votre dossier components/. Importez-le directement :",
+      "fileStructure": "Structure des fichiers"
+    },
+    "exploreNext": "Explorer le premier composant — PricingTable"
+  },
+  "common": {
+    "category": {
+      "monetization": "Monétisation",
+      "conversion": "Conversion",
+      "usage": "Usage",
+      "activation": "Activation",
+      "upsell": "Upsell",
+      "collaboration": "Collaboration",
+      "billing": "Facturation",
+      "identity": "Identité",
+      "developer": "Développeur",
+      "permissions": "Permissions"
+    },
+    "plans": {
+      "free": "Free",
+      "trial": "Trial",
+      "pro": "Pro",
+      "enterprise": "Enterprise"
+    }
+  },
+  "components": {
+    "pricingTable": {
+      "monthly": "Mensuel",
+      "annual": "Annuel",
+      "recommended": "Recommandé",
+      "free": "GRATUIT",
+      "pro": "PRO",
+      "enterprise": "ENTERPRISE",
+      "perMonth": "/mois",
+      "startFree": "Commencer gratuitement",
+      "upgradePro": "Passer au Pro",
+      "contactSales": "Contacter les ventes",
+      "feature": "Fonctionnalité",
+      "billedAnnual": "Facturé {{amount}}/an",
+      "defaultDesc": {
+        "free": "Pour démarrer et tester.",
+        "pro": "Pour les équipes en croissance.",
+        "enterprise": "Pour les grandes organisations."
+      },
+      "features": {
+        "projects": "Projets actifs",
+        "team": "Membres d'équipe",
+        "api": "Appels API / mois",
+        "storage": "Stockage",
+        "support": "Support prioritaire",
+        "sso": "SSO / SAML",
+        "audit": "Audit logs",
+        "sla": "SLA garanti"
+      }
+    },
+    "trialBanner": {
+      "expireToday": "Votre essai expire aujourd'hui",
+      "oneDayLeft": "Il reste 1 jour à votre essai",
+      "daysLeft": "Il reste {{count}} jours à votre essai",
+      "upgradeContinue": "— Passez au plan {{plan}} pour continuer sans interruption.",
+      "upgradeBtn": "Passer au {{plan}}",
+      "close": "Fermer"
+    },
+    "usageMeter": {
+      "limitDanger": "Limite presque atteinte — les nouvelles requêtes seront bloquées.",
+      "limitWarn": "Vous approchez de votre limite mensuelle.",
+      "increase": "Augmenter",
+      "steps": "{{count}} étapes",
+      "onboardingTitle": "Mise en route",
+      "monthUsage": "Utilisation ce mois-ci",
+      "demo": {
+        "api": "Appels API",
+        "storage": "Stockage",
+        "team": "Membres actifs",
+        "webhooks": "Webhooks"
+      }
+    },
+    "onboardingSteps": {
+      "complete": "Configuration terminée !",
+      "completeDesc": "Vous êtes prêt à utiliser toutes les fonctionnalités.",
+      "steps": "{{completed}}/{{total}} étapes",
+      "markDone": "Marquer comme fait",
+      "skip": "Ignorer",
+      "demo": {
+        "profile": {
+          "title": "Compléter votre profil",
+          "desc": "Ajoutez votre nom, photo et informations de contact pour personnaliser votre espace.",
+          "btn": "Aller au profil"
+        },
+        "workspace": {
+          "title": "Créer votre premier espace de travail",
+          "desc": "Organisez vos projets dans des espaces de travail dédiés pour votre équipe.",
+          "btn": "Créer un espace"
+        },
+        "invite": {
+          "title": "Inviter des membres",
+          "desc": "Collaborez en invitant vos collègues à rejoindre votre espace de travail.",
+          "btn": "Inviter des membres"
+        },
+        "api": {
+          "title": "Générer votre première clé API",
+          "desc": "Intégrez notre API dans vos applications avec une clé d'authentification sécurisée.",
+          "btn": "Générer une clé"
+        }
+      }
+    },
+    "upgradeModal": {
+      "title": "Passer au plan supérieur",
+      "subtitle": "Débloquez plus de fonctionnalités et repoussez les limites de votre projet.",
+      "featureTitle": "Ce que vous obtenez :",
+      "cta": "Passer à {{plan}}",
+      "openPreview": "Ouvrir l'UpgradeModal"
+    },
+    "teamInvite": {
+      "title": "Inviter des membres",
+      "subtitle": "Collaborez avec votre équipe en invitant de nouveaux membres.",
+      "emailLabel": "Adresse email",
+      "roleLabel": "Rôle",
+      "sendInvite": "Envoyer l'invitation",
+      "roles": {
+        "admin": "Administrateur",
+        "member": "Membre",
+        "viewer": "Spectateur"
+      }
+    },
+    "invoiceRow": {
+      "download": "Télécharger",
+      "status": {
+        "paid": "Payée",
+        "pending": "En attente",
+        "void": "Annulée"
+      }
+    },
+    "apiKeyCard": {
+      "title": "Clés API",
+      "reveal": "Révéler",
+      "hide": "Masquer",
+      "copy": "Copier",
+      "copied": "Copié",
+      "rotate": "Rotation",
+      "rotateWarn": "La rotation de la clé invalidera immédiatement l'ancienne.",
+      "demo": {
+        "prod": "Clé de production",
+        "dev": "Clé de développement"
+      }
+    },
+    "featureGate": {
+      "locked": "Fonctionnalité verrouillée",
+      "lockedDesc": "Cette fonctionnalité est disponible dans le plan {{plan}}.",
+      "upgrade": "Passer au plan supérieur",
+      "demo": {
+        "overlay": "Mode overlay (plan Free)",
+        "replace": "Mode replace (plan Free)",
+        "allowed": "Accès autorisé (plan Pro)"
+      }
+    }
+  },
+  "notFound": {
+    "title": "Page non trouvée",
+    "description": "Désolé, la page que vous recherchez n'existe pas.",
+    "subDescription": "Elle a peut-être été déplacée ou supprimée.",
+    "goHome": "Retour à l'accueil"
+  }
+}

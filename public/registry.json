@@ -1,0 +1,137 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry.json",
+  "name": "@saaskit",
+  "homepage": "https://saaskit.dev",
+  "items": [
+    {
+      "name": "pricing-table",
+      "type": "registry:component",
+      "title": "PricingTable",
+      "description": "Plans, toggle mensuel/annuel, highlight plan recommandé",
+      "categories": ["monetisation", "saas"],
+      "files": [
+        {
+          "path": "components/saaskit/pricing-table.tsx",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "trial-banner",
+      "type": "registry:component",
+      "title": "TrialBanner",
+      "description": "Bandeau J jours restants avec CTA upgrade",
+      "categories": ["conversion", "saas"],
+      "files": [
+        {
+          "path": "components/saaskit/trial-banner.tsx",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "usage-meter",
+      "type": "registry:component",
+      "title": "UsageMeter",
+      "description": "Barre de quota avec seuils d'alerte (warn / danger)",
+      "categories": ["usage", "saas"],
+      "files": [
+        {
+          "path": "components/saaskit/usage-meter.tsx",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "onboarding-steps",
+      "type": "registry:component",
+      "title": "OnboardingSteps",
+      "description": "Checklist de setup avec progression et skip",
+      "categories": ["activation", "saas"],
+      "files": [
+        {
+          "path": "components/saaskit/onboarding-steps.tsx",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "upgrade-modal",
+      "type": "registry:component",
+      "title": "UpgradeModal",
+      "description": "Modal de passage au plan supérieur, avec feature gate",
+      "categories": ["upsell", "saas"],
+      "files": [
+        {
+          "path": "components/saaskit/upgrade-modal.tsx",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "team-invite",
+      "type": "registry:component",
+      "title": "TeamInvite",
+      "description": "Invitation par email avec sélection de rôle",
+      "categories": ["collaboration", "saas"],
+      "files": [
+        {
+          "path": "components/saaskit/team-invite.tsx",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "invoice-row",
+      "type": "registry:component",
+      "title": "InvoiceRow",
+      "description": "Ligne de facture avec statut, montant, téléchargement",
+      "categories": ["billing", "saas"],
+      "files": [
+        {
+          "path": "components/saaskit/invoice-row.tsx",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "plan-badge",
+      "type": "registry:component",
+      "title": "PlanBadge",
+      "description": "Badge Free / Pro / Enterprise dans le header",
+      "categories": ["identity", "saas"],
+      "files": [
+        {
+          "path": "components/saaskit/plan-badge.tsx",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "api-key-card",
+      "type": "registry:component",
+      "title": "ApiKeyCard",
+      "description": "Affichage + rotation de clé API masquée",
+      "categories": ["developer", "saas"],
+      "files": [
+        {
+          "path": "components/saaskit/api-key-card.tsx",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "feature-gate",
+      "type": "registry:component",
+      "title": "FeatureGate",
+      "description": "Wrapper qui bloque ou affiche un slot selon le plan",
+      "categories": ["permissions", "saas"],
+      "files": [
+        {
+          "path": "components/saaskit/feature-gate.tsx",
+          "type": "registry:component"
+        }
+      ]
+    }
+  ]
+}
