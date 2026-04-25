@@ -1,68 +1,66 @@
 # @saaskit
 
-**La registry shadcn/ui pour les produits B2B SaaS.**
+**The shadcn/ui registry for B2B SaaS products.**
 
-10 composants essentiels — pricing, trial, usage, onboarding, billing — prêts à l'emploi, installables en une commande.
+10 essential components — pricing, trial, usage, onboarding, billing — ready to use, installable in one command.
 
 ```bash
 npx shadcn add @saaskit/pricing-table
 ```
 
-## Composants
+## Components
 
-| Composant | Catégorie | Description |
-|-----------|-----------|-------------|
-| `PricingTable` | Monetisation | Plans, toggle mensuel/annuel, highlight plan recommandé |
-| `TrialBanner` | Conversion | Bandeau "J jours restants" avec CTA upgrade |
-| `UsageMeter` | Usage | Barre de quota avec seuils d'alerte (warn / danger) |
-| `OnboardingSteps` | Activation | Checklist de setup avec progression et skip |
-| `UpgradeModal` | Upsell | Modal de passage au plan supérieur, avec feature gate |
-| `TeamInvite` | Collaboration | Invitation par email avec sélection de rôle |
-| `InvoiceRow` | Billing | Ligne de facture avec statut, montant, téléchargement |
-| `PlanBadge` | Identity | Badge Free / Pro / Enterprise dans le header |
-| `ApiKeyCard` | Developer | Affichage + rotation de clé API masquée |
-| `FeatureGate` | Permissions | Wrapper qui bloque ou affiche un slot selon le plan |
+| Component | Category | Description |
+|-----------|----------|-------------|
+| `PricingTable` | Monetization | Plans, monthly/annual toggle, recommended plan highlight |
+| `TrialBanner` | Conversion | "X days remaining" banner with upgrade CTA |
+| `UsageMeter` | Usage | Quota bar with alert thresholds (warn / danger) |
+| `OnboardingSteps` | Activation | Setup checklist with progress tracking and skip |
+| `UpgradeModal` | Upsell | Modal for upgrading to a higher plan, with feature gate |
+| `TeamInvite` | Collaboration | Email invitation with role selection |
+| `InvoiceRow` | Billing | Invoice row with status, amount, and download |
+| `PlanBadge` | Identity | Free / Pro / Enterprise badge in the header |
+| `ApiKeyCard` | Developer | Display + rotation of a masked API key |
+| `FeatureGate` | Permissions | Wrapper that blocks or reveals a slot based on the plan |
 
 ## Installation
 
-### Prérequis
+### Prerequisites
 
 - Next.js 14+
 - shadcn/ui CLI 2.0+
 - Tailwind CSS v4
 - TypeScript 5+
 
-### Utilisation
+### Usage
 
 ```bash
-# Initialiser shadcn/ui si nécessaire
+# Initialize shadcn/ui if needed
 npx shadcn@latest init
 
-# Installer un composant
+# Install a component
 npx shadcn add @saaskit/pricing-table
 npx shadcn add @saaskit/trial-banner
 npx shadcn add @saaskit/usage-meter
 ```
 
-## Stack technique
+## Tech Stack
 
-- **Next.js 15** — Framework React
-- **shadcn/ui CLI** — Distribution via registry
+- **Next.js 15** — React framework
+- **shadcn/ui CLI** — Registry-based distribution
 - **Tailwind CSS v4** — Styling
-- **TypeScript** — Typage strict
-- **registry.json** — Configuration de la registry
-- **Vercel** — Déploiement
+- **TypeScript** — Strict typing
+- **registry.json** — Registry configuration
+- **Vercel** — Deployment
 - **MDX** — Documentation
 
-
-
-## Développement local
+## Local Development
 
 ```bash
 pnpm install
 pnpm dev
 ```
 
-## Licence
+## License
 
 MIT
