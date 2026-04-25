@@ -143,24 +143,24 @@ function Sidebar({ onClose }: { onClose?: () => void }) {
           <LanguageSwitcher />
         </div>
         <a
-          href="https://github.com"
+          href="https://github.com/terravidhal/saaskit"
           target="_blank"
           rel="noopener noreferrer"
           className="nav-item"
         >
           <Github className="h-4 w-4" />
           GitHub
-          <ExternalLink className="h-3 w-3 ml-auto" />
+          <ExternalLink className="h-3 w-3 ml-auto opacity-50" />
         </a>
         <a
-          href="https://ui.shadcn.com/registry"
+          href="https://ui.shadcn.com/docs/directory"
           target="_blank"
           rel="noopener noreferrer"
           className="nav-item"
         >
           <Package className="h-4 w-4" />
-          {t("sidebar.registry", { defaultValue: "shadcn registry" })}
-          <ExternalLink className="h-3 w-3 ml-auto" />
+          Shadcn Directory
+          <ExternalLink className="h-3 w-3 ml-auto opacity-50" />
         </a>
       </div>
     </div>
@@ -228,7 +228,7 @@ export function DocLayout({ children }: DocLayoutProps) {
           <div className="flex items-center gap-2">
             <LanguageSwitcher />
             <a
-              href="https://github.com"
+              href="https://github.com/terravidhal/saaskit"
               target="_blank"
               rel="noopener noreferrer"
               className="p-1.5 rounded hover:bg-muted/50 text-muted-foreground hover:text-foreground transition-colors"

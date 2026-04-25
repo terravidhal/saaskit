@@ -292,7 +292,7 @@ export default function Home() {
               </button>
             </Link>
             <a
-              href="https://github.com"
+              href="https://github.com/terravidhal/saaskit"
               target="_blank"
               rel="noopener noreferrer"
               className="flex items-center gap-2 px-5 py-2.5 rounded-lg border border-border text-foreground text-sm font-medium hover:bg-secondary transition-colors"
@@ -404,7 +404,9 @@ export default function Home() {
       {/* Stack technique */}
       <section className="border-t border-border">
         <div className="max-w-4xl mx-auto px-6 py-10">
-          <h2 className="text-lg font-bold text-foreground font-[Fraunces] mb-4">Stack technique</h2>
+          <h2 className="text-lg font-bold text-foreground font-[Fraunces] mb-4">
+            {t("footer.techStack", { defaultValue: "Tech Stack" })}
+          </h2>
           <div className="flex flex-wrap gap-2">
             {["Next.js 15", "shadcn/ui CLI", "Tailwind CSS v4", "TypeScript", "registry.json", "Vercel", "MDX"].map(
               (tech) => (

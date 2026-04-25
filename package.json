@@ -3,6 +3,11 @@
   "version": "1.0.0",
   "type": "module",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/terravidhal/saaskit.git"
+  },
+  "homepage": "https://github.com/terravidhal/saaskit#readme",
   "scripts": {
     "dev": "vite --host",
     "build": "vite build && pnpm build:registry",

@@ -70,24 +70,24 @@ export default function LandingPage() {
 
   const testimonials = [
     {
-      name: t("testimonials.alice.name", { defaultValue: "Alice Martin" }),
-      title: t("testimonials.alice.title", { defaultValue: "Founder @ StartupXYZ" }),
-      avatar: "AM",
-      quote: t("testimonials.alice.quote", { defaultValue: "@saaskit m'a fait gagner 3 semaines de développement. Les composants sont parfaits pour notre SaaS." }),
+      name: t("testimonials.alice.name"),
+      title: t("testimonials.alice.title"),
+      avatar: "ON",
+      quote: t("testimonials.alice.quote"),
       color: "bg-blue-500",
     },
     {
-      name: t("testimonials.bob.name", { defaultValue: "Bob Dupont" }),
-      title: t("testimonials.bob.title", { defaultValue: "CTO @ TechCorp" }),
-      avatar: "BD",
-      quote: t("testimonials.bob.quote", { defaultValue: "Enfin une registry shadcn orientée B2B ! Exactement ce qu'il nous fallait." }),
+      name: t("testimonials.bob.name"),
+      title: t("testimonials.bob.title"),
+      avatar: "AT",
+      quote: t("testimonials.bob.quote"),
       color: "bg-emerald-500",
     },
     {
-      name: t("testimonials.charlie.name", { defaultValue: "Charlie Lee" }),
-      title: t("testimonials.charlie.title", { defaultValue: "Designer @ DesignStudio" }),
-      avatar: "CL",
-      quote: t("testimonials.charlie.quote", { defaultValue: "Les composants sont beaux, accessibles et faciles à customiser. Recommandé !" }),
+      name: t("testimonials.charlie.name"),
+      title: t("testimonials.charlie.title"),
+      avatar: "MW",
+      quote: t("testimonials.charlie.quote"),
       color: "bg-pink-500",
     },
   ];
@@ -120,7 +120,7 @@ export default function LandingPage() {
               </button>
             </Link>
             <a
-              href="https://github.com"
+              href="https://github.com/terravidhal/saaskit"
               target="_blank"
               rel="noopener noreferrer"
               className="text-sm text-muted-foreground hover:text-foreground transition-colors flex items-center gap-1"
@@ -179,7 +179,7 @@ export default function LandingPage() {
               </button>
             </Link>
             <a
-              href="https://github.com"
+              href="https://github.com/terravidhal/saaskit"
               target="_blank"
               rel="noopener noreferrer"
               className="flex items-center gap-2 px-8 py-4 rounded-xl border-2 border-border bg-background/50 backdrop-blur-sm text-base font-bold hover:bg-muted transition-all duration-200"
@@ -368,7 +368,7 @@ export default function LandingPage() {
                 <BookOpen className="h-3.5 w-3.5" />
                 {t("nav.docs")}
               </a>
-              <a href="https://github.com" target="_blank" rel="noopener noreferrer" className="flex items-center gap-1.5 hover:text-foreground transition-colors">
+              <a href="https://github.com/terravidhal/saaskit" target="_blank" rel="noopener noreferrer" className="flex items-center gap-1.5 hover:text-foreground transition-colors">
                 <Github className="h-3.5 w-3.5" />
                 {t("nav.github")}
               </a>

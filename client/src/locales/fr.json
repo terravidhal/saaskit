@@ -56,18 +56,18 @@
     "subtitle": "Découvrez ce que les utilisateurs disent de @saaskit.",
     "alice": {
       "quote": "@saaskit m'a fait gagner 3 semaines de développement. Les composants sont parfaits pour notre SaaS.",
-      "name": "Alice Martin",
-      "title": "Fondatrice @ StartupXYZ"
+      "name": "Orlan ngandeu",
+      "title": "CEO @ HES DIGITAL"
     },
     "bob": {
       "quote": "Enfin une registry shadcn orientée B2B ! Exactement ce qu'il nous fallait.",
-      "name": "Bob Dupont",
-      "title": "CTO @ TechCorp"
+      "name": "Amir Toukour",
+      "title": "Frontend Developer @ LF COMPANY"
     },
     "charlie": {
-      "quote": "Les composants sont beaux, accessibles et faciles à customiser. Recommandé !",
-      "name": "Charlie Lee",
-      "title": "Designer @ DesignStudio"
+      "quote": "Les composants sont beaux, accessibles et faciles à personnaliser. Recommandé !",
+      "name": "Mathurin Wansi",
+      "title": "Software ingénieur @ Seven Academy"
     }
   },
   "cta": {
@@ -285,7 +285,8 @@
     }
   },
   "footer": {
-    "builtBy": "© {{year}} Saaskit par Vidhal Elame. License MIT."
+    "builtBy": "© {{year}} Saaskit par Vidhal Elame. License MIT.",
+    "techStack": "Stack technique"
   },
   "sidebar": {
     "intro": "Introduction",

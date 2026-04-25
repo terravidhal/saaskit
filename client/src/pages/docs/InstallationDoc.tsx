@@ -122,7 +122,7 @@ export function PricingPage() {
             code={`{
   "$schema": "https://ui.shadcn.com/schema/registry.json",
   "name": "@saaskit",
-  "homepage": "https://saaskit.dev",
+  "homepage": "https://github.com/terravidhal/saaskit",
   "items": [
     {
       "name": "pricing-table",

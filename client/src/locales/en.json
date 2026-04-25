@@ -55,19 +55,19 @@
     "title": "Loved by developers",
     "subtitle": "See what users are saying about @saaskit.",
     "alice": {
-      "quote": "@saaskit saved me 3 weeks of development. The components are perfect for our SaaS.",
-      "name": "Alice Martin",
-      "title": "Founder @ StartupXYZ"
+      "name": "Orlan ngandeu",
+      "title": "CEO @ HES DIGITAL",
+      "quote": "@saaskit saved me 3 weeks of development. The components are perfect for our SaaS."
     },
     "bob": {
-      "quote": "Finally a B2B-oriented shadcn registry! Exactly what we needed.",
-      "name": "Bob Dupont",
-      "title": "CTO @ TechCorp"
+      "name": "Amir Toukour",
+      "title": "Frontend Developer @ LF COMPANY",
+      "quote": "Finally a shadcn registry oriented for B2B! Exactly what we needed."
     },
     "charlie": {
-      "quote": "The components are beautiful, accessible, and easy to customize. Recommended!",
-      "name": "Charlie Lee",
-      "title": "Designer @ DesignStudio"
+      "name": "Mathurin Wansi",
+      "title": "Software Engineer @ Seven Academy",
+      "quote": "The components are beautiful, accessible and easy to customize. Recommended!"
     }
   },
   "cta": {
@@ -285,7 +285,8 @@
     }
   },
   "footer": {
-    "builtBy": "© {{year}} Saaskit by Vidhal Elame. MIT License."
+    "builtBy": "© {{year}} Saaskit by Vidhal Elame. MIT License.",
+    "techStack": "Tech Stack"
   },
   "sidebar": {
     "intro": "Introduction",
