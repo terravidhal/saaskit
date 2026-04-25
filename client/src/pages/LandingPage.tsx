@@ -19,6 +19,9 @@ import {
   ExternalLink,
   Check,
   Star,
+  Twitter,
+  MessageCircle,
+  BookOpen,
 } from "lucide-react";
 
 const HERO_BG = "https://d36hbw14aib5lz.cloudfront.net/310519663567950157/WPzUnUj6yx6AwSdeHZG6mm/hero-bg-DkjHqDgNLNL9KphK79xZf4.webp";
@@ -104,7 +107,8 @@ export default function LandingPage() {
           <Link href="/">
             <div className="flex items-center gap-2 cursor-pointer group">
               <div className="h-8 w-8 rounded-lg bg-primary/15 border border-primary/30 flex items-center justify-center">
-                <Package className="h-4 w-4 text-primary" />
+                {/* <Package className="h-4 w-4 text-primary" /> */}
+                <img className="h-4 w-4 text-primary"  src="/images/logos/logo-white.svg" alt="logo-green" />
               </div>
               <span className="font-black text-lg font-[Fraunces] group-hover:text-primary transition-colors">Saaskit</span>
             </div>
@@ -141,56 +145,59 @@ export default function LandingPage() {
         />
         <div className="absolute inset-0 bg-gradient-to-b from-background/30 via-background/60 to-background" />
 
-        <div className="relative max-w-4xl mx-auto px-6 text-center">
-          {/* Badge */}
-          <div className="inline-flex items-center gap-2 mb-6">
-            <span className="text-xs font-semibold px-3 py-1.5 rounded-full bg-primary/15 text-primary border border-primary/30 font-mono">
-              registry.shadcn.ui
-            </span>
-            <span className="text-xs text-muted-foreground">{t("hero.badge")}</span>
-            <span className="text-xs text-muted-foreground">Built by Vidhal Elame</span>
+        <div className="relative max-w-4xl mx-auto px-6 text-center animate-fade-in-up">
+          {/* SaaS Kit Branding in Hero */}
+          <div className="flex items-center justify-center gap-3 mb-6 bg-foreground/5 py-1.5 px-4 rounded-full border border-foreground/10 w-fit mx-auto">
+            <div className="dark:hidden flex-shrink-0">
+              <img src="/images/logos/logo-dark.svg" alt="Saaskit Logo" className="h-6 w-auto" />
+            </div>
+            <div className="hidden dark:block flex-shrink-0">
+              <img src="/images/logos/logo-white.svg" alt="Saaskit Logo" className="h-6 w-auto" />
+            </div>
+            <div className="h-4 w-px bg-foreground/20" />
+            <span className="text-sm font-black text-foreground tracking-tight">Saaskit</span>
           </div>
 
           {/* Title */}
-          <h1 className="text-6xl lg:text-7xl font-black text-foreground leading-tight mb-6 font-[Fraunces]">
+          <h1 className="text-5xl lg:text-7xl font-black text-foreground leading-[1.1] mb-6 font-[Fraunces]">
             <Trans i18nKey="hero.title">
-              La registry shadcn/ui pour les <span className="text-primary">produits B2B SaaS</span>
+              La registry shadcn/ui pour les <span className="text-primary italic">produits B2B SaaS</span>
             </Trans>
           </h1>
 
           {/* Subtitle */}
-          <p className="text-lg lg:text-xl text-muted-foreground max-w-2xl mx-auto mb-8 leading-relaxed">
+          <p className="text-lg lg:text-xl text-muted-foreground max-w-2xl mx-auto mb-10 leading-relaxed">
             {t("hero.subtitle")}
           </p>
 
-          {/* Stats */}
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-10 max-w-2xl mx-auto">
-            {stats.map((stat) => (
-              <div key={stat.label} className="rounded-lg border border-border bg-card/50 p-3">
-                <div className="text-2xl font-black text-primary mb-1">{stat.value}</div>
-                <div className="text-xs text-muted-foreground font-mono">{stat.label}</div>
-              </div>
-            ))}
-          </div>
-
           {/* CTAs */}
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-16">
             <Link href="/docs/introduction">
-              <button className="flex items-center gap-2 px-6 py-3 rounded-lg bg-primary text-primary-foreground text-sm font-semibold hover:opacity-90 transition-opacity">
+              <button className="flex items-center gap-2 px-8 py-4 rounded-xl bg-primary text-primary-foreground text-base font-bold shadow-lg shadow-primary/20 hover:scale-105 transition-all duration-200">
                 {t("hero.getStarted")}
-                <ArrowRight className="h-4 w-4" />
+                <ArrowRight className="h-5 w-5" />
               </button>
             </Link>
             <a
               href="https://github.com"
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center gap-2 px-6 py-3 rounded-lg border border-border text-foreground text-sm font-medium hover:bg-secondary transition-colors"
+              className="flex items-center gap-2 px-8 py-4 rounded-xl border-2 border-border bg-background/50 backdrop-blur-sm text-base font-bold hover:bg-muted transition-all duration-200"
             >
-              <Github className="h-4 w-4" />
-              {t("hero.github")}
-              <ExternalLink className="h-3 w-3 text-muted-foreground" />
+              <Github className="h-5 w-5" />
+              {/* {t("hero.viewGithub")} */}
+              {t("Github")}
             </a>
+          </div>
+
+          {/* Stats - Now more subtle and at the bottom */}
+          <div className="flex flex-wrap items-center justify-center gap-x-12 gap-y-6 opacity-60 grayscale hover:opacity-100 hover:grayscale-0 transition-all duration-500">
+            {stats.map((stat) => (
+              <div key={stat.label} className="flex flex-col items-center">
+                <div className="text-xl font-black text-foreground">{stat.value}</div>
+                <div className="text-[10px] uppercase tracking-widest font-bold text-muted-foreground">{stat.label}</div>
+              </div>
+            ))}
           </div>
         </div>
       </section>
@@ -352,20 +359,25 @@ export default function LandingPage() {
         <div className="max-w-6xl mx-auto px-6">
           <div className="flex flex-col md:flex-row items-center justify-between gap-4">
             <div className="flex items-center gap-2">
-              <Package className="h-4 w-4 text-primary" />
+              {/* <Package className="h-4 w-4 text-primary" /> */}
+              <img className="h-4 w-4 text-primary"  src="/images/logos/logo-white.svg" alt="logo-green" />
               <span className="text-sm font-semibold text-foreground">saaskit</span>
             </div>
             <div className="flex items-center gap-6 text-xs text-muted-foreground">
-              <a href="#" className="hover:text-foreground transition-colors">
+              <a href="/docs/introduction" className="flex items-center gap-1.5 hover:text-foreground transition-colors">
+                <BookOpen className="h-3.5 w-3.5" />
                 {t("nav.docs")}
               </a>
-              <a href="#" className="hover:text-foreground transition-colors">
+              <a href="https://github.com" target="_blank" rel="noopener noreferrer" className="flex items-center gap-1.5 hover:text-foreground transition-colors">
+                <Github className="h-3.5 w-3.5" />
                 {t("nav.github")}
               </a>
-              <a href="#" className="hover:text-foreground transition-colors">
+              <a href="#" className="flex items-center gap-1.5 hover:text-foreground transition-colors">
+                <Twitter className="h-3.5 w-3.5" />
                 Twitter
               </a>
-              <a href="#" className="hover:text-foreground transition-colors">
+              <a href="#" className="flex items-center gap-1.5 hover:text-foreground transition-colors">
+                <MessageCircle className="h-3.5 w-3.5" />
                 Discord
               </a>
             </div>

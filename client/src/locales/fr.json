@@ -17,7 +17,7 @@
     "zeroDeps": "Zéro dépendance"
   },
   "features": {
-    "title": "Pourquoi @saaskit ?",
+    "title": "Pourquoi saaskit ?",
     "subtitle": "Conçu par des développeurs SaaS, pour des développeurs SaaS.",
     "items": {
       "npx": {

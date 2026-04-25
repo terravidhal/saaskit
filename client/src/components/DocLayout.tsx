@@ -76,7 +76,9 @@ function Sidebar({ onClose }: { onClose?: () => void }) {
         <Link href="/" onClick={onClose}>
           <div className="flex items-center gap-2.5 group">
             <div className="h-7 w-7 rounded-md bg-primary flex items-center justify-center">
-              <Layers className="h-4 w-4 text-primary-foreground" />
+              {/* <Layers className="h-4 w-4 text-primary-foreground" /> */}
+              <img className="dark:hidden h-4 w-4 text-primary-foreground"  src="/images/logos/blanc-logo.svg" alt="logo-green" />
+              <img className="hidden dark:block h-4 w-4 text-primary-foreground"  src="/images/logos/noire-logo.svg" alt="logo-green" />
             </div>
             <div>
               <span className="text-sm font-bold text-foreground font-mono">saaskit</span>

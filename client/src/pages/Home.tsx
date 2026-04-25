@@ -20,7 +20,8 @@ import { InstallBlock } from "@/components/CodeBlock";
 import { useTranslation, Trans } from "react-i18next";
 
 //const HERO_BG = "https://d36hbw14aib5lz.cloudfront.net/310519663567950157/WPzUnUj6yx6AwSdeHZG6mm/hero-bg-DkjHqDgNLNL9KphK79xZf4.webp";
-const HERO_BG = "/images/hero/bg-hero.webp";
+//const HERO_BG = "/images/hero/bg-hero.png";
+const HERO_BG = "";
 // Image générée : grille perspective emerald avec composants UI flottants en wireframe
 
 
@@ -246,11 +247,21 @@ export default function Home() {
           </div>
 
           {/* Title */}
-          <div className="dark:hidden mb-4"><img src="/images/logos/logo-dark.svg" alt="Saaskit Logo" className="h-12 w-auto" /></div>
-          <div className="hidden dark:block mb-4"><img src="/images/logos/logo-white.svg" alt="Saaskit Logo" className="h-12 w-auto" /></div>
-          <h1 className="text-5xl lg:text-7xl font-black text-foreground leading-none mb-4 font-[Fraunces]">
-            Saaskit
-          </h1>
+          <div className="flex items-center gap-4 mb-6">
+            <div className="dark:hidden flex-shrink-0">
+              <img src="/images/logos/logo-dark.svg" alt="Saaskit Logo" className="h-10 lg:h-14 w-auto" />
+            </div>
+            <div className="hidden dark:block flex-shrink-0">
+              <img src="/images/logos/logo-white.svg" alt="Saaskit Logo" className="h-10 lg:h-14 w-auto" />
+            </div>
+            
+            {/* Vertical Separator */}
+            <div className="h-10 lg:h-12 w-px bg-foreground/20 self-center" />
+
+            <h1 className="text-5xl lg:text-7xl font-black text-foreground leading-none font-[Fraunces]">
+              Saaskit
+            </h1>
+          </div>
           <p className="text-xl lg:text-2xl text-muted-foreground font-light mb-2">
             <Trans i18nKey="intro.title">
               La registry shadcn/ui pour les <span className="text-foreground font-medium">produits B2B SaaS</span>.
