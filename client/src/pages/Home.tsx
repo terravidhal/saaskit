@@ -16,7 +16,7 @@ import {
   Code2,
 } from "lucide-react";
 import { DocLayout } from "@/components/DocLayout";
-import { InstallBlock } from "@/components/CodeBlock";
+import { PackageManagerBlock } from "@/components/CodeBlock";
 import { useTranslation, Trans } from "react-i18next";
 
 //const HERO_BG = "https://d36hbw14aib5lz.cloudfront.net/310519663567950157/WPzUnUj6yx6AwSdeHZG6mm/hero-bg-DkjHqDgNLNL9KphK79xZf4.webp";
@@ -274,7 +274,7 @@ export default function Home() {
           {/* Install command */}
           <div className="max-w-lg mb-8">
             <p className="text-xs text-muted-foreground mb-2 font-mono">{t("intro.install")}</p>
-            <InstallBlock command="npx shadcn add @saaskit/pricing-table" />
+            <PackageManagerBlock args="add @saaskit/pricing-table" />
           </div>
 
           {/* CTAs */}

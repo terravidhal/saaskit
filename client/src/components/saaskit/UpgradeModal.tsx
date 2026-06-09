@@ -1,7 +1,21 @@
 "use client";
 
+import { useEffect } from "react";
 import { Check, Zap, X } from "lucide-react";
 import { cn } from "@/lib/utils";
+
+function useSaaskitFont() {
+  useEffect(() => {
+    const id = "__saaskit_font";
+    if (typeof document === "undefined" || document.getElementById(id)) return;
+    const link = Object.assign(document.createElement("link"), {
+      id,
+      rel: "stylesheet",
+      href: "https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,100..900&display=swap",
+    });
+    document.head.appendChild(link);
+  }, []);
+}
 
 type Lang = "en" | "fr";
 
@@ -107,6 +121,7 @@ export function UpgradeModal({
   labels,
   className,
 }: UpgradeModalProps) {
+  useSaaskitFont();
   if (!open) return null;
 
   const base = T[lang];
@@ -164,14 +179,14 @@ export function UpgradeModal({
 
             {featureName ? (
               <>
-                <h2 className="text-lg font-bold text-foreground font-[Fraunces] mb-1">
+                <h2 className="text-lg font-bold text-foreground font-[family-name:var(--saaskit-font-display,Fraunces)] mb-1">
                   {L.unlockFeature(featureName)}
                 </h2>
                 <p className="text-sm text-muted-foreground">{L.featureAvailableIn(planLabel)}</p>
               </>
             ) : (
               <>
-                <h2 className="text-lg font-bold text-foreground font-[Fraunces] mb-1">
+                <h2 className="text-lg font-bold text-foreground font-[family-name:var(--saaskit-font-display,Fraunces)] mb-1">
                   {L.passToPlan(planLabel)}
                 </h2>
                 <p className="text-sm text-muted-foreground">{L.subtitle}</p>
@@ -192,7 +207,7 @@ export function UpgradeModal({
             <div>
               <span className="text-xs text-muted-foreground">{L.startingFrom}</span>
               <div className="flex items-baseline gap-1">
-                <span className="text-2xl font-bold text-foreground font-[Fraunces]">
+                <span className="text-2xl font-bold text-foreground font-[family-name:var(--saaskit-font-display,Fraunces)]">
                   ${price.annual}
                 </span>
                 <span className="text-sm text-muted-foreground">{L.perMonth}</span>

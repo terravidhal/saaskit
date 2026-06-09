@@ -1,4 +1,4 @@
-import { ComponentDocPage } from "@/components/ComponentDocPage";
+import { ComponentDocPage, containerSection, themeSection, langSection } from "@/components/ComponentDocPage";
 import { TeamInvite } from "@/components/saaskit/TeamInvite";
 import { useTranslation } from "react-i18next";
 
@@ -12,7 +12,8 @@ const demoPending = [
 ];
 
 export default function TeamInviteDoc() {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
+  const isFr = i18n.language.startsWith("fr");
 
   return (
     <ComponentDocPage
@@ -28,7 +29,7 @@ export default function TeamInviteDoc() {
           maxMembers={10}
           onInvite={async (email, role) => {
             await new Promise((r) => setTimeout(r, 500));
-            console.log("Invité :", email, role);
+            console.log("Invited:", email, role);
           }}
         />
       }
@@ -38,9 +39,10 @@ export default function TeamInviteDoc() {
   members={team.members}
   pendingInvites={team.pendingInvites}
   maxMembers={plan === "pro" ? 10 : 1}
+  lang="en"
   onInvite={async (email, role) => {
     await api.inviteTeamMember({ email, role });
-    toast.success(\`Invitation envoyée à \${email}\`);
+    toast.success(\`Invitation sent to \${email}\`);
   }}
   onRevokeInvite={(email) => {
     api.revokeInvite(email);
@@ -52,12 +54,37 @@ export default function TeamInviteDoc() {
       propsTable={[
         { prop: "members", type: "TeamMember[]", description: t("docs.teamInvite.props.members") },
         { prop: "pendingInvites", type: "PendingInvite[]", description: t("docs.teamInvite.props.pendingInvites") },
+        { prop: "maxMembers", type: "number", description: t("docs.teamInvite.props.maxMembers") },
+        { prop: "lang", type: '"en" | "fr"', default: '"en"', description: isFr ? 'Langue des textes. "en" = anglais (défaut), "fr" = français. Affecte aussi le formatage des dates.' : 'Text language. "en" = English (default), "fr" = French. Also affects date formatting.' },
+        { prop: "labels", type: "TeamInviteLabels", default: "—", description: isFr ? "Surcharge fins de libellés, y compris les rôles." : "Fine-grained text overrides, including role names." },
         { prop: "onInvite", type: "(email, role) => Promise<void>", description: t("docs.teamInvite.props.onInvite") },
         { prop: "onRevokeInvite", type: "(email) => void", description: t("docs.teamInvite.props.onRevokeInvite") },
         { prop: "onChangeMemberRole", type: "(email, role) => void", description: t("docs.teamInvite.props.onChangeMemberRole") },
-        { prop: "maxMembers", type: "number", description: t("docs.teamInvite.props.maxMembers") },
       ]}
       notes={t("docs.teamInvite.notes", { returnObjects: true }) as string[]}
+      extraSections={[
+        containerSection(isFr, "TeamInvite"),
+        themeSection(isFr),
+        langSection(
+          isFr,
+          "TeamInvite",
+          `<TeamInvite
+  members={members}
+  lang="fr"
+/>
+
+// ${isFr ? "Surcharger certains libellés (y compris les rôles)" : "Override specific labels (including role names)"}
+<TeamInvite
+  members={members}
+  lang="fr"
+  labels={{
+    title: "Inviter des collaborateurs",
+    inviteButton: "Envoyer",
+    roles: { admin: "Administrateur", member: "Collaborateur", viewer: "Observateur" },
+  }}
+/>`,
+        ),
+      ]}
       prevDoc={{ name: "UpgradeModal", path: "/docs/upgrade-modal" }}
       nextDoc={{ name: "InvoiceRow", path: "/docs/invoice-row" }}
     />

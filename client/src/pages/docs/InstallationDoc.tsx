@@ -4,18 +4,6 @@ import { Link } from "wouter";
 import { ArrowRight } from "lucide-react";
 import { useTranslation } from "react-i18next";
 
-const ALL_COMPONENTS = [
-  "pricing-table",
-  "trial-banner",
-  "usage-meter",
-  "onboarding-steps",
-  "upgrade-modal",
-  "plan-badge",
-  "api-key-card",
-  "team-invite",
-  "invoice-row",
-  "feature-gate",
-];
 
 export default function InstallationDoc() {
   const { t } = useTranslation();
@@ -24,7 +12,7 @@ export default function InstallationDoc() {
     <DocLayout>
       <div className="max-w-3xl mx-auto px-6 py-10">
         <div className="mb-8">
-          <h1 className="text-4xl font-black text-foreground font-[family-name:var(--font-fraunces,Fraunces)] mb-3">
+          <h1 className="text-4xl font-black text-foreground font-[Fraunces] mb-3">
             {t("installPage.title", { defaultValue: "Installation" })}
           </h1>
           <p className="text-base text-muted-foreground">
@@ -99,13 +87,19 @@ export default function InstallationDoc() {
             })}
           </p>
           <div className="space-y-3">
-            {ALL_COMPONENTS.map((name) => (
-              <div key={name}>
-                <p className="text-xs font-mono text-muted-foreground mb-1.5">@saaskit/{name}</p>
-                <PackageManagerBlock args={`add @saaskit/${name}`} />
-              </div>
-            ))}
+            <div>
+              <p className="text-xs font-mono text-muted-foreground mb-1.5">@saaskit/pricing-table</p>
+              <PackageManagerBlock args="add @saaskit/pricing-table" />
+            </div>
+            <div>
+              <p className="text-xs font-mono text-muted-foreground mb-1.5">@saaskit/upgrade-modal</p>
+              <PackageManagerBlock args="add @saaskit/upgrade-modal" />
+            </div>
           </div>
+          <p className="text-xs text-muted-foreground mt-3">
+            Replace <code className="font-mono text-primary">pricing-table</code> with any component name.
+            Browse all components in the sidebar.
+          </p>
         </section>
 
         {/* Usage */}
@@ -160,41 +154,37 @@ export function PricingPage() {
           />
         </section>
 
-        {/* Optional: Fraunces font */}
+        {/* Fraunces font */}
         <section className="mb-8">
           <h2 className="text-sm font-semibold text-foreground uppercase tracking-widest mb-4">
-            Optional — Fraunces font
+            Fraunces font — auto-loaded
           </h2>
           <p className="text-sm text-muted-foreground mb-3">
-            Some components use the <code className="font-mono text-primary">Fraunces</code> display font for headings.
-            Without it they fall back gracefully. To match the saaskit preview exactly, add it to your layout:
+            <code className="font-mono text-primary">PricingTable</code> and{" "}
+            <code className="font-mono text-primary">UpgradeModal</code> use the{" "}
+            <code className="font-mono text-primary">Fraunces</code> display font on prices and headings.
+            The font loads automatically from Google Fonts on first render — no setup required.
+          </p>
+          <p className="text-sm text-muted-foreground mb-3">
+            To replace it with your own font, set the{" "}
+            <code className="font-mono text-primary">--saaskit-font-display</code> CSS variable:
           </p>
           <CodeBlock
-            code={`// app/layout.tsx
-import { Geist, Fraunces } from "next/font/google";
+            code={`/* globals.css — override the display font */
+:root {
+  --saaskit-font-display: 'Inter';
+}
 
-const fraunces = Fraunces({ variable: "--font-fraunces", subsets: ["latin"] });
-
-export default function RootLayout({ children }) {
-  return (
-    <html lang="en" className={\`\${fraunces.variable}\`}>
-      <body>{children}</body>
-    </html>
-  );
-}`}
-            language="tsx"
-            showLineNumbers
-          />
-          <CodeBlock
-            code={`/* globals.css */
-@layer base {
-  :root {
-    --font-display: var(--font-fraunces);
-  }
+/* Or with a Next.js font variable */
+:root {
+  --saaskit-font-display: var(--font-your-font);
 }`}
             language="css"
-            className="mt-3"
+            showLineNumbers
           />
+          <p className="text-xs text-muted-foreground mt-2">
+            If <code className="font-mono">--saaskit-font-display</code> is not set, Fraunces is used as the default.
+          </p>
         </section>
 
         {/* Optional: saaskit theme */}

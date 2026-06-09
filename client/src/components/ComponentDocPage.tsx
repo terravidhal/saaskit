@@ -36,6 +36,101 @@ interface ComponentDocPageProps {
   nextDoc?: { name: string; path: string };
 }
 
+export function containerSection(isFr: boolean, componentName: string): ExtraSection {
+  return {
+    title: "Container & Layout",
+    content: (
+      <div className="space-y-3">
+        <p className="text-sm text-muted-foreground leading-relaxed">
+          {isFr
+            ? <>Le composant occupe 100% de la largeur disponible. Pour lui donner une zone bien délimitée comme sur cette page, enveloppez-le dans un container :</>
+            : <>The component takes up 100% of available width. To constrain it to a defined zone (like on this page), wrap it in a container:</>}
+        </p>
+        <CodeBlock
+          language="tsx"
+          code={`<div className="max-w-4xl mx-auto px-6 py-12">
+  <${componentName} ... />
+</div>`}
+        />
+        <p className="text-sm text-muted-foreground">
+          {isFr
+            ? <>Adaptez <code className="text-xs font-mono bg-muted px-1.5 py-0.5 rounded">max-w-4xl</code> selon votre mise en page — <code className="text-xs font-mono bg-muted px-1.5 py-0.5 rounded">max-w-5xl</code> pour un layout plus large, <code className="text-xs font-mono bg-muted px-1.5 py-0.5 rounded">max-w-3xl</code> pour une page plus étroite.</>
+            : <>Adjust <code className="text-xs font-mono bg-muted px-1.5 py-0.5 rounded">max-w-4xl</code> to your layout — <code className="text-xs font-mono bg-muted px-1.5 py-0.5 rounded">max-w-5xl</code> for wider layouts, <code className="text-xs font-mono bg-muted px-1.5 py-0.5 rounded">max-w-3xl</code> for narrower ones.</>}
+        </p>
+      </div>
+    ),
+  };
+}
+
+export function themeSection(isFr: boolean): ExtraSection {
+  return {
+    title: isFr ? "Thème & Couleurs" : "Theme & Colors",
+    content: (
+      <div className="space-y-3">
+        <p className="text-sm text-muted-foreground leading-relaxed">
+          {isFr
+            ? <>Le composant utilise <code className="text-xs font-mono bg-muted px-1.5 py-0.5 rounded text-primary">var(--primary)</code> pour toutes ses couleurs d'accentuation — il s'adapte automatiquement au thème de votre projet. Si votre primary est bleu, le composant sera bleu.</>
+            : <>The component uses <code className="text-xs font-mono bg-muted px-1.5 py-0.5 rounded text-primary">var(--primary)</code> for all accent colors — it automatically adapts to your project's theme. Blue primary? Blue component.</>}
+        </p>
+        <p className="text-sm text-muted-foreground">
+          {isFr
+            ? <>Pour obtenir le rendu vert emerald visible sur ce site, ajoutez dans votre <code className="text-xs font-mono bg-muted px-1.5 py-0.5 rounded">globals.css</code> :</>
+            : <>To get the emerald green look visible on this site, add to your <code className="text-xs font-mono bg-muted px-1.5 py-0.5 rounded">globals.css</code>:</>}
+        </p>
+        <CodeBlock
+          language="css"
+          code={`:root {
+  --primary: oklch(0.65 0.2 165);
+  --primary-foreground: oklch(0.98 0.005 270);
+}
+.dark {
+  --primary: oklch(0.72 0.17 162);
+  --primary-foreground: oklch(0.1 0.005 270);
+}`}
+        />
+        <p className="text-sm text-muted-foreground">
+          {isFr
+            ? "Si vous avez déjà un thème shadcn configuré, conservez vos valeurs — le composant utilisera votre couleur principale."
+            : "If you already have a shadcn theme configured, keep your values — the component will use your existing primary color."}
+        </p>
+      </div>
+    ),
+  };
+}
+
+export function langSection(
+  isFr: boolean,
+  componentName: string,
+  labelsExample: string,
+): ExtraSection {
+  return {
+    title: isFr ? "Labels & Langue" : "Labels & Language",
+    content: (
+      <div className="space-y-4">
+        <p className="text-sm text-muted-foreground leading-relaxed">
+          {isFr
+            ? <>Les textes sont en <strong>anglais par défaut</strong>. Passez <code className="text-xs font-mono bg-muted px-1.5 py-0.5 rounded text-primary">lang="fr"</code> pour le français.</>
+            : <>Texts are in <strong>English by default</strong>. Pass <code className="text-xs font-mono bg-muted px-1.5 py-0.5 rounded text-primary">lang="fr"</code> to switch to French.</>}
+        </p>
+        <CodeBlock
+          language="tsx"
+          code={`// ${isFr ? "Anglais (défaut)" : "English (default)"}
+<${componentName} />
+
+// ${isFr ? "Français" : "French"}
+<${componentName} lang="fr" />`}
+        />
+        <p className="text-sm text-muted-foreground">
+          {isFr
+            ? <>Utilisez <code className="text-xs font-mono bg-muted px-1.5 py-0.5 rounded text-primary">labels</code> pour personnaliser certains libellés (sans changer la langue) ou pour d'autres langues :</>
+            : <>Use <code className="text-xs font-mono bg-muted px-1.5 py-0.5 rounded text-primary">labels</code> to override specific texts (without changing the language) or for other languages:</>}
+        </p>
+        <CodeBlock language="tsx" code={labelsExample} />
+      </div>
+    ),
+  };
+}
+
 export function ComponentDocPage({
   name,
   category,

@@ -70,17 +70,17 @@ export function CodeBlock({ code, language = "tsx", filename, showLineNumbers = 
         </button>
       </div>
 
-      {/* Code with syntax highlighting */}
-      <div className="bg-[oklch(0.08_0.005_270)] overflow-x-auto">
+      {/* Code with syntax highlighting — text color is fixed (bg is always dark) */}
+      <div className="bg-[oklch(0.08_0.005_270)] overflow-x-auto text-[#e2e8f0]">
         <pre className="p-4 text-sm font-mono leading-relaxed">
           {showLineNumbers ? (
             lines.map((_, i) => (
               <div key={i} className="flex gap-4">
-                <span className="select-none text-muted-foreground/40 w-6 text-right flex-shrink-0">
+                <span className="select-none text-[#4b5563] w-6 text-right flex-shrink-0">
                   {i + 1}
                 </span>
                 <span
-                  className="text-foreground/90 hljs"
+                  className="hljs"
                   dangerouslySetInnerHTML={{
                     __html: highlighted.split("\n")[i] || "",
                   }}
@@ -234,10 +234,10 @@ export function PackageManagerBlock({ args, className }: PackageManagerBlockProp
           </button>
         ))}
       </div>
-      {/* Command line */}
-      <div className="flex items-center gap-2 px-4 py-3 bg-[oklch(0.08_0.005_270)]">
-        <span className="text-primary/60 font-mono text-sm select-none flex-shrink-0">$</span>
-        <code className="flex-1 text-foreground/90 font-mono text-sm overflow-x-auto whitespace-nowrap">
+      {/* Command line — text color is fixed (bg is always dark) */}
+      <div className="flex items-center gap-2 px-4 py-3 bg-[oklch(0.08_0.005_270)] text-[#e2e8f0]">
+        <span className="text-primary/80 font-mono text-sm select-none flex-shrink-0">$</span>
+        <code className="flex-1 font-mono text-sm overflow-x-auto whitespace-nowrap">
           {command}
         </code>
         <button

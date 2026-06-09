@@ -1,9 +1,22 @@
 "use client";
 
 import type * as React from "react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Check, Minus, Zap } from "lucide-react";
 import { cn } from "@/lib/utils";
+
+function useSaaskitFont() {
+  useEffect(() => {
+    const id = "__saaskit_font";
+    if (typeof document === "undefined" || document.getElementById(id)) return;
+    const link = Object.assign(document.createElement("link"), {
+      id,
+      rel: "stylesheet",
+      href: "https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,100..900&display=swap",
+    });
+    document.head.appendChild(link);
+  }, []);
+}
 
 type Lang = "en" | "fr";
 
@@ -79,6 +92,7 @@ interface PricingTableProps extends Omit<React.ComponentProps<"div">, "children"
 }
 
 export function PricingTable({ features, onSelectPlan, lang = "en", labels, className, ...rest }: PricingTableProps) {
+  useSaaskitFont();
   const [billing, setBilling] = useState<"monthly" | "annual">("monthly");
 
   const base = T[lang];
@@ -174,7 +188,7 @@ export function PricingTable({ features, onSelectPlan, lang = "en", labels, clas
             </span>
           </div>
           <div className="mb-1">
-            <span className="text-3xl font-bold text-foreground font-[Fraunces]">$0</span>
+            <span className="text-3xl font-bold text-foreground font-[family-name:var(--saaskit-font-display,Fraunces)]">$0</span>
             <span className="text-muted-foreground text-sm ml-1">{L.perMonth}</span>
           </div>
           <p className="text-sm text-muted-foreground mb-6">{L.descriptions.free}</p>
@@ -200,7 +214,7 @@ export function PricingTable({ features, onSelectPlan, lang = "en", labels, clas
             </span>
           </div>
           <div className="mb-1">
-            <span className="text-3xl font-bold text-foreground font-[Fraunces]">
+            <span className="text-3xl font-bold text-foreground font-[family-name:var(--saaskit-font-display,Fraunces)]">
               ${prices.pro[billing]}
             </span>
             <span className="text-muted-foreground text-sm ml-1">{L.perMonth}</span>
@@ -225,7 +239,7 @@ export function PricingTable({ features, onSelectPlan, lang = "en", labels, clas
             </span>
           </div>
           <div className="mb-1">
-            <span className="text-3xl font-bold text-foreground font-[Fraunces]">
+            <span className="text-3xl font-bold text-foreground font-[family-name:var(--saaskit-font-display,Fraunces)]">
               ${prices.enterprise[billing]}
             </span>
             <span className="text-muted-foreground text-sm ml-1">{L.perMonth}</span>

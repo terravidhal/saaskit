@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { ComponentDocPage } from "@/components/ComponentDocPage";
+import { ComponentDocPage, containerSection, themeSection, langSection } from "@/components/ComponentDocPage";
 import { UpgradeModal } from "@/components/saaskit/UpgradeModal";
 import { useTranslation } from "react-i18next";
 
@@ -13,9 +13,9 @@ function UpgradeModalPreview() {
         onClick={() => setOpen(true)}
         className="px-4 py-2 rounded-lg bg-primary text-primary-foreground text-sm font-medium hover:opacity-90 transition-opacity"
       >
-        {t("components.upgradeModal.openPreview", { defaultValue: "Ouvrir l'UpgradeModal" })}
+        {t("components.upgradeModal.openPreview", { defaultValue: "Open UpgradeModal" })}
       </button>
-      <p className="text-xs text-muted-foreground">{t("components.common.clickToPreview", { defaultValue: "Cliquez pour voir le modal en action" })}</p>
+      <p className="text-xs text-muted-foreground">{t("components.common.clickToPreview", { defaultValue: "Click to see the modal in action" })}</p>
       <UpgradeModal
         open={open}
         onClose={() => setOpen(false)}
@@ -29,7 +29,8 @@ function UpgradeModalPreview() {
 }
 
 export default function UpgradeModalDoc() {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
+  const isFr = i18n.language.startsWith("fr");
 
   return (
     <ComponentDocPage
@@ -48,7 +49,7 @@ function AuditLogsPage({ user }) {
     return (
       <>
         <button onClick={() => setShowUpgrade(true)}>
-          Voir les audit logs
+          View audit logs
         </button>
         <UpgradeModal
           open={showUpgrade}
@@ -57,6 +58,7 @@ function AuditLogsPage({ user }) {
           featureName="Audit Logs"
           currentPlan="free"
           targetPlan="pro"
+          lang="en"
         />
       </>
     );
@@ -72,9 +74,44 @@ function AuditLogsPage({ user }) {
         { prop: "currentPlan", type: '"free" | "pro"', default: '"free"', description: t("docs.upgradeModal.props.currentPlan") },
         { prop: "targetPlan", type: '"pro" | "enterprise"', default: '"pro"', description: t("docs.upgradeModal.props.targetPlan") },
         { prop: "features", type: "string[]", description: t("docs.upgradeModal.props.features") },
-        { prop: "price", type: "{ monthly: number; annual: number }", description: t("docs.upgradeModal.props.price") },
+        { prop: "lang", type: '"en" | "fr"', default: '"en"', description: isFr ? 'Langue des textes. "en" = anglais (défaut), "fr" = français.' : 'Text language. "en" = English (default), "fr" = French.' },
+        { prop: "labels", type: "UpgradeModalLabels", default: "—", description: isFr ? "Surcharge fins de libellés." : "Fine-grained text overrides." },
       ]}
-      notes={t("docs.upgradeModal.notes", { returnObjects: true }) as string[]}
+      notes={[
+        ...(t("docs.upgradeModal.notes", { returnObjects: true }) as string[]),
+        isFr
+          ? "La police Fraunces se charge automatiquement depuis Google Fonts. Pour la remplacer, définissez --saaskit-font-display dans votre CSS : :root { --saaskit-font-display: 'Inter'; }"
+          : "The Fraunces font loads automatically from Google Fonts. To replace it, set --saaskit-font-display in your CSS: :root { --saaskit-font-display: 'Inter'; }",
+      ]}
+      extraSections={[
+        containerSection(isFr, "UpgradeModal"),
+        themeSection(isFr),
+        langSection(
+          isFr,
+          "UpgradeModal",
+          `<UpgradeModal
+  open={showUpgrade}
+  onClose={() => setShowUpgrade(false)}
+  onUpgrade={() => router.push("/checkout?plan=pro")}
+  featureName="Audit Logs"
+  currentPlan="free"
+  targetPlan="pro"
+  lang="fr"
+/>
+
+// ${isFr ? "Surcharger certains libellés" : "Override specific labels"}
+<UpgradeModal
+  open={showUpgrade}
+  onClose={() => {}}
+  onUpgrade={() => {}}
+  lang="fr"
+  labels={{
+    title: "Passez à la vitesse supérieure",
+    ctaBtn: (plan) => \`Activer \${plan} maintenant\`,
+  }}
+/>`,
+        ),
+      ]}
       prevDoc={{ name: "OnboardingSteps", path: "/docs/onboarding-steps" }}
       nextDoc={{ name: "TeamInvite", path: "/docs/team-invite" }}
     />
