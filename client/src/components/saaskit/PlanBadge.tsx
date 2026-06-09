@@ -7,6 +7,11 @@ type Lang = "en" | "fr";
 
 export type Plan = "free" | "pro" | "enterprise" | "trial";
 
+const T: Record<Lang, Record<Plan, string>> = {
+  en: { free: "Free", trial: "Trial", pro: "Pro", enterprise: "Enterprise" },
+  fr: { free: "Gratuit", trial: "Essai", pro: "Pro", enterprise: "Enterprise" },
+};
+
 interface PlanBadgeProps {
   plan: Plan;
   size?: "sm" | "md" | "lg";
@@ -16,24 +21,20 @@ interface PlanBadgeProps {
   className?: string;
 }
 
-const planConfig: Record<Plan, { label: string; icon: React.ElementType; className: string }> = {
+const planConfig: Record<Plan, { icon: React.ElementType; className: string }> = {
   free: {
-    label: "Free",
     icon: Sparkles,
     className: "bg-muted text-muted-foreground border border-border",
   },
   trial: {
-    label: "Trial",
     icon: Zap,
     className: "bg-yellow-500/10 text-yellow-400 border border-yellow-500/25",
   },
   pro: {
-    label: "Pro",
     icon: Zap,
     className: "bg-primary/15 text-primary border border-primary/30",
   },
   enterprise: {
-    label: "Enterprise",
     icon: Building2,
     className: "bg-[oklch(0.75_0.15_80/15%)] text-[oklch(0.80_0.15_80)] border border-[oklch(0.75_0.15_80/30%)]",
   },
@@ -50,11 +51,13 @@ export function PlanBadge({
   size = "md",
   showIcon = true,
   onClick,
+  lang = "en",
   className,
 }: PlanBadgeProps) {
   const config = planConfig[plan];
   const sizes = sizeConfig[size];
   const Icon = config.icon;
+  const label = T[lang][plan];
   const Component = onClick ? "button" : "span";
 
   return (
@@ -69,7 +72,7 @@ export function PlanBadge({
       )}
     >
       {showIcon && <Icon className={cn(sizes.icon, "flex-shrink-0")} />}
-      {config.label}
+      {label}
     </Component>
   );
 }

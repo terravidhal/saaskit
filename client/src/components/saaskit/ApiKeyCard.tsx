@@ -19,6 +19,9 @@ interface ApiKeyCardLabels {
   createdOn?: string;
   lastUsed?: string;
   neverUsed?: string;
+  envProduction?: string;
+  envDevelopment?: string;
+  envTest?: string;
 }
 
 const T: Record<Lang, Required<ApiKeyCardLabels>> = {
@@ -35,6 +38,9 @@ const T: Record<Lang, Required<ApiKeyCardLabels>> = {
     createdOn: "Created on",
     lastUsed: "Last used:",
     neverUsed: "Never used",
+    envProduction: "Production",
+    envDevelopment: "Development",
+    envTest: "Test",
   },
   fr: {
     revoke: "Révoquer",
@@ -49,6 +55,9 @@ const T: Record<Lang, Required<ApiKeyCardLabels>> = {
     createdOn: "Créée le",
     lastUsed: "Dernière utilisation :",
     neverUsed: "Jamais utilisée",
+    envProduction: "Production",
+    envDevelopment: "Développement",
+    envTest: "Test",
   },
 };
 
@@ -100,6 +109,15 @@ export function ApiKeyCard({
     createdOn: labels?.createdOn ?? base.createdOn,
     lastUsed: labels?.lastUsed ?? base.lastUsed,
     neverUsed: labels?.neverUsed ?? base.neverUsed,
+    envProduction: labels?.envProduction ?? base.envProduction,
+    envDevelopment: labels?.envDevelopment ?? base.envDevelopment,
+    envTest: labels?.envTest ?? base.envTest,
+  };
+
+  const envConfig = {
+    production: { label: L.envProduction, className: "bg-destructive/10 text-destructive border-destructive/25" },
+    development: { label: L.envDevelopment, className: "bg-primary/10 text-primary border-primary/25" },
+    test: { label: L.envTest, className: "bg-yellow-500/10 text-yellow-400 border-yellow-500/25" },
   };
 
   const locale = lang === "fr" ? "fr-FR" : "en-US";
@@ -127,12 +145,6 @@ export function ApiKeyCard({
       setRotating(false);
       setRevealed(false);
     }
-  };
-
-  const envConfig = {
-    production: { label: "Production", className: "bg-destructive/10 text-destructive border-destructive/25" },
-    development: { label: "Development", className: "bg-primary/10 text-primary border-primary/25" },
-    test: { label: "Test", className: "bg-yellow-500/10 text-yellow-400 border-yellow-500/25" },
   };
 
   return (

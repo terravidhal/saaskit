@@ -116,10 +116,11 @@ export function PricingTable({ features, onSelectPlan, lang = "en", labels, clas
     },
   };
 
+  const unlimited = lang === "fr" ? "Illimité" : "Unlimited";
   const defaultFeatures: PricingFeature[] = [
-    { name: lang === "fr" ? "Projets actifs" : "Active projects", free: "3", pro: "Unlimited", enterprise: "Unlimited" },
-    { name: lang === "fr" ? "Membres d'équipe" : "Team members", free: "1", pro: "10", enterprise: "Unlimited" },
-    { name: lang === "fr" ? "Appels API / mois" : "API calls / month", free: "10,000", pro: "500,000", enterprise: "Unlimited" },
+    { name: lang === "fr" ? "Projets actifs" : "Active projects", free: "3", pro: unlimited, enterprise: unlimited },
+    { name: lang === "fr" ? "Membres d'équipe" : "Team members", free: "1", pro: "10", enterprise: unlimited },
+    { name: lang === "fr" ? "Appels API / mois" : "API calls / month", free: "10,000", pro: "500,000", enterprise: unlimited },
     { name: lang === "fr" ? "Stockage" : "Storage", free: "1 GB", pro: "50 GB", enterprise: "500 GB" },
     { name: lang === "fr" ? "Support prioritaire" : "Priority support", free: false, pro: true, enterprise: true },
     { name: "SSO / SAML", free: false, pro: false, enterprise: true },
