@@ -49,7 +49,9 @@ export function PricingSection() {
           prop: "features",
           type: "PricingFeature[]",
           default: "—",
-          description: "Liste des fonctionnalités à comparer. Si omis, une liste par défaut est utilisée.",
+          description: isFr
+            ? "Liste des fonctionnalités à comparer. Si omis, une liste par défaut traduite automatiquement via lang est utilisée. Si vous passez votre propre tableau, les noms (name) sont votre responsabilité — le prop lang ne les traduit pas."
+            : "Feature list to compare. If omitted, a built-in list is used and translated automatically via the lang prop. If you pass your own array, the feature names are your responsibility — the lang prop does not translate them.",
         },
         {
           prop: "onSelectPlan",
@@ -84,11 +86,13 @@ export function PricingSection() {
         "Le composant est auto-suffisant : aucune dépendance externe requise après installation.",
         "Toutes les couleurs utilisent var(--primary) — le composant s'adapte automatiquement au thème de votre projet.",
         "Le toggle mensuel/annuel applique une réduction de 20% et affiche le montant facturé annuellement.",
+        "Le prop lang traduit uniquement les textes intégrés (boutons, en-têtes, descriptions). Si vous passez votre propre tableau features, traduisez les noms vous-même.",
         "La police Fraunces se charge automatiquement depuis Google Fonts. Pour la remplacer, définissez --saaskit-font-display dans votre CSS : :root { --saaskit-font-display: 'Inter'; }",
       ] : [
         "The component is self-contained: no external dependencies required after installation.",
         "All colors use var(--primary) — the component automatically adapts to your project's theme.",
         "The monthly/annual toggle applies a 20% discount and displays the annual billing amount.",
+        "The lang prop only translates built-in texts (buttons, headers, descriptions). If you pass your own features array, translate the names yourself.",
         "The Fraunces font loads automatically from Google Fonts. To replace it, set --saaskit-font-display in your CSS: :root { --saaskit-font-display: 'Inter'; }",
       ]}
       extraSections={[
