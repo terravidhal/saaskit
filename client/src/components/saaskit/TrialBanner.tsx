@@ -1,14 +1,24 @@
+"use client";
+
 import { useState } from "react";
 import { X, Clock, Zap } from "lucide-react";
-import { useTranslation } from "react-i18next";
 import { cn } from "@/lib/utils";
 
-interface TrialBannerProps {
+interface TrialBannerLabels {
+  expireToday?: string;
+  oneDayLeft?: string;
+  daysLeft?: (count: number) => string;
+  upgradeContinue?: (plan: string) => string;
+  upgradeBtn?: (plan: string) => string;
+  close?: string;
+}
+
+interface TrialBannerProps extends Omit<React.ComponentProps<"div">, "children"> {
   daysRemaining: number;
   onUpgrade?: () => void;
   onDismiss?: () => void;
   planName?: string;
-  className?: string;
+  labels?: TrialBannerLabels;
 }
 
 export function TrialBanner({
@@ -16,12 +26,22 @@ export function TrialBanner({
   onUpgrade,
   onDismiss,
   planName = "Pro",
+  labels,
   className,
+  ...rest
 }: TrialBannerProps) {
-  const { t } = useTranslation();
   const [dismissed, setDismissed] = useState(false);
 
   if (dismissed) return null;
+
+  const L = {
+    expireToday: labels?.expireToday ?? "Votre essai expire aujourd'hui",
+    oneDayLeft: labels?.oneDayLeft ?? "Il reste 1 jour à votre essai",
+    daysLeft: labels?.daysLeft ?? ((count: number) => `Il reste ${count} jours à votre essai`),
+    upgradeContinue: labels?.upgradeContinue ?? ((plan: string) => `— Passez au plan ${plan} pour continuer sans interruption.`),
+    upgradeBtn: labels?.upgradeBtn ?? ((plan: string) => `Passer au ${plan}`),
+    close: labels?.close ?? "Fermer",
+  };
 
   const urgency = daysRemaining <= 3 ? "danger" : daysRemaining <= 7 ? "warn" : "normal";
 
@@ -31,9 +51,9 @@ export function TrialBanner({
   };
 
   const getMessage = () => {
-    if (daysRemaining === 0) return t("components.trialBanner.expireToday");
-    if (daysRemaining === 1) return t("components.trialBanner.oneDayLeft");
-    return t("components.trialBanner.daysLeft", { count: daysRemaining });
+    if (daysRemaining === 0) return L.expireToday;
+    if (daysRemaining === 1) return L.oneDayLeft;
+    return L.daysLeft(daysRemaining);
   };
 
   return (
@@ -45,6 +65,7 @@ export function TrialBanner({
         urgency === "normal" && "bg-primary/10 border-b border-primary/20",
         className
       )}
+      {...rest}
     >
       <div className="flex items-center gap-2 min-w-0">
         <Clock
@@ -66,7 +87,7 @@ export function TrialBanner({
           {getMessage()}
         </span>
         <span className="text-muted-foreground hidden sm:inline">
-          {t("components.trialBanner.upgradeContinue", { plan: planName })}
+          {L.upgradeContinue(planName)}
         </span>
       </div>
 
@@ -81,12 +102,12 @@ export function TrialBanner({
           )}
         >
           <Zap className="h-3 w-3" />
-          {t("components.trialBanner.upgradeBtn", { plan: planName })}
+          {L.upgradeBtn(planName)}
         </button>
         <button
           onClick={handleDismiss}
           className="p-1 rounded hover:bg-white/10 text-muted-foreground hover:text-foreground transition-colors"
-          aria-label={t("components.trialBanner.close")}
+          aria-label={L.close}
         >
           <X className="h-4 w-4" />
         </button>

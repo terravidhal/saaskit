@@ -6,6 +6,8 @@
  * Affichage + rotation de clé API masquée
  */
 
+"use client";
+
 import { useState } from "react";
 import { Eye, EyeOff, Copy, RefreshCw, Check, Key, AlertTriangle } from "lucide-react";
 import { cn } from "@/lib/utils";
@@ -104,7 +106,7 @@ export function ApiKeyCard({
 
       {/* Key display */}
       <div className="px-4 py-3">
-        <div className="install-block group relative">
+        <div className="flex items-center gap-2 rounded-lg border border-primary bg-muted/30 px-4 py-3 font-mono text-sm group relative">
           <code className="flex-1 text-foreground font-mono text-sm overflow-hidden text-ellipsis whitespace-nowrap">
             {revealed ? keyValue : maskedKey}
           </code>

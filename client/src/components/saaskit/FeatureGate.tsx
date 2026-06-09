@@ -6,6 +6,8 @@
  * Wrapper qui bloque ou affiche un slot selon le plan
  */
 
+"use client";
+
 import { Lock, Zap } from "lucide-react";
 import { cn } from "@/lib/utils";
 import type { Plan } from "./PlanBadge";

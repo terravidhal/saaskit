@@ -44,7 +44,6 @@ async function buildRegistry() {
       const dependencies = [];
       if (content.includes("lucide-react")) dependencies.push("lucide-react");
       if (content.includes("framer-motion")) dependencies.push("framer-motion");
-      if (content.includes("react-i18next")) dependencies.push("react-i18next");
       if (content.includes("clsx") || content.includes("tailwind-merge")) {
          // Souvent déjà présent dans shadcn, mais on peut les lister
       }

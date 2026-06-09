@@ -1,17 +1,24 @@
+"use client";
+
 import { cn } from "@/lib/utils";
 import { TrendingUp, AlertTriangle, AlertCircle } from "lucide-react";
-import { useTranslation } from "react-i18next";
 
-interface UsageMeterProps {
+interface UsageMeterLabels {
+  limitDanger?: string;
+  limitWarn?: string;
+  increase?: string;
+}
+
+interface UsageMeterProps extends Omit<React.ComponentProps<"div">, "children"> {
   label: string;
   used: number;
   limit: number;
   unit?: string;
-  warnThreshold?: number;  // 0-100, default 75
-  dangerThreshold?: number; // 0-100, default 90
+  warnThreshold?: number;
+  dangerThreshold?: number;
   showUpgrade?: boolean;
   onUpgrade?: () => void;
-  className?: string;
+  labels?: UsageMeterLabels;
 }
 
 function formatNumber(n: number): string {
@@ -29,9 +36,16 @@ export function UsageMeter({
   dangerThreshold = 90,
   showUpgrade = true,
   onUpgrade,
+  labels,
   className,
+  ...rest
 }: UsageMeterProps) {
-  const { t } = useTranslation();
+  const L = {
+    limitDanger: labels?.limitDanger ?? "Limite presque atteinte — les nouvelles requêtes seront bloquées.",
+    limitWarn: labels?.limitWarn ?? "Vous approchez de votre limite mensuelle.",
+    increase: labels?.increase ?? "Augmenter",
+  };
+
   const percentage = Math.min((used / limit) * 100, 100);
   const status =
     percentage >= dangerThreshold
@@ -41,7 +55,7 @@ export function UsageMeter({
       : "normal";
 
   return (
-    <div className={cn("space-y-2", className)}>
+    <div className={cn("space-y-2", className)} {...rest}>
       <div className="flex items-center justify-between gap-2">
         <div className="flex items-center gap-1.5">
           {status === "danger" && <AlertCircle className="h-3.5 w-3.5 text-destructive flex-shrink-0" />}
@@ -77,7 +91,6 @@ export function UsageMeter({
         </div>
       </div>
 
-      {/* Progress bar */}
       <div className="h-2 w-full rounded-full bg-muted overflow-hidden">
         <div
           className={cn(
@@ -90,33 +103,28 @@ export function UsageMeter({
         />
       </div>
 
-      {/* Warning messages */}
       {status === "danger" && (
         <div className="flex items-center justify-between gap-2">
-          <p className="text-xs text-destructive">
-            {t("components.usageMeter.limitDanger")}
-          </p>
+          <p className="text-xs text-destructive">{L.limitDanger}</p>
           {showUpgrade && (
             <button
               onClick={onUpgrade}
               className="text-xs font-semibold text-primary hover:underline flex-shrink-0"
             >
-              {t("components.usageMeter.increase")} →
+              {L.increase} →
             </button>
           )}
         </div>
       )}
       {status === "warn" && (
         <div className="flex items-center justify-between gap-2">
-          <p className="text-xs text-yellow-400/80">
-            {t("components.usageMeter.limitWarn")}
-          </p>
+          <p className="text-xs text-yellow-400/80">{L.limitWarn}</p>
           {showUpgrade && (
             <button
               onClick={onUpgrade}
               className="text-xs font-semibold text-primary hover:underline flex-shrink-0"
             >
-              {t("components.usageMeter.increase")} →
+              {L.increase} →
             </button>
           )}
         </div>
@@ -125,7 +133,6 @@ export function UsageMeter({
   );
 }
 
-/* Compound: UsageMeterGroup — plusieurs métriques groupées */
 interface UsageMeterGroupProps {
   title?: string;
   meters: Omit<UsageMeterProps, "className">[];

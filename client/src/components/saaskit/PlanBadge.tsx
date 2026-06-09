@@ -6,6 +6,8 @@
  * Badge Free / Pro / Enterprise dans le header
  */
 
+"use client";
+
 import { Zap, Building2, Sparkles } from "lucide-react";
 import { cn } from "@/lib/utils";
 
@@ -26,23 +28,22 @@ const planConfig: Record<
   free: {
     label: "Free",
     icon: Sparkles,
-    className: "plan-badge-free",
+    className: "bg-muted text-muted-foreground border border-border",
   },
   trial: {
     label: "Trial",
     icon: Zap,
-    className:
-      "bg-yellow-500/10 text-yellow-400 border border-yellow-500/25",
+    className: "bg-yellow-500/10 text-yellow-400 border border-yellow-500/25",
   },
   pro: {
     label: "Pro",
     icon: Zap,
-    className: "plan-badge-pro",
+    className: "bg-primary/15 text-primary border border-primary/30",
   },
   enterprise: {
     label: "Enterprise",
     icon: Building2,
-    className: "plan-badge-enterprise",
+    className: "bg-[oklch(0.75_0.15_80/15%)] text-[oklch(0.80_0.15_80)] border border-[oklch(0.75_0.15_80/30%)]",
   },
 };
 

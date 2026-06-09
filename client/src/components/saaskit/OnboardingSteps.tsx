@@ -1,6 +1,7 @@
+"use client";
+
 import { useState } from "react";
 import { Check, ChevronRight, SkipForward, Circle } from "lucide-react";
-import { useTranslation } from "react-i18next";
 import { cn } from "@/lib/utils";
 
 export interface OnboardingStep {
@@ -16,11 +17,21 @@ export interface OnboardingStep {
   skippable?: boolean;
 }
 
+interface OnboardingStepsLabels {
+  title?: string;
+  complete?: string;
+  completeDesc?: string;
+  steps?: (completed: number, total: number) => string;
+  markDone?: string;
+  skip?: string;
+}
+
 interface OnboardingStepsProps {
   steps: OnboardingStep[];
   onStepComplete?: (stepId: string) => void;
   onStepSkip?: (stepId: string) => void;
   onAllComplete?: () => void;
+  labels?: OnboardingStepsLabels;
   className?: string;
 }
 
@@ -29,13 +40,22 @@ export function OnboardingSteps({
   onStepComplete,
   onStepSkip,
   onAllComplete,
+  labels,
   className,
 }: OnboardingStepsProps) {
-  const { t } = useTranslation();
   const [steps, setSteps] = useState(initialSteps);
   const [expandedStep, setExpandedStep] = useState<string | null>(
     initialSteps.find((s) => !s.completed && !s.skipped)?.id ?? null
   );
+
+  const L = {
+    title: labels?.title ?? "Mise en route",
+    complete: labels?.complete ?? "Configuration terminée !",
+    completeDesc: labels?.completeDesc ?? "Vous êtes prêt à utiliser toutes les fonctionnalités.",
+    steps: labels?.steps ?? ((completed: number, total: number) => `${completed}/${total} étapes`),
+    markDone: labels?.markDone ?? "Marquer comme fait",
+    skip: labels?.skip ?? "Ignorer",
+  };
 
   const completedCount = steps.filter((s) => s.completed).length;
   const totalCount = steps.length;
@@ -48,7 +68,6 @@ export function OnboardingSteps({
     );
     onStepComplete?.(stepId);
 
-    // Auto-expand next incomplete step
     const currentIndex = steps.findIndex((s) => s.id === stepId);
     const nextStep = steps.slice(currentIndex + 1).find((s) => !s.completed && !s.skipped);
     setExpandedStep(nextStep?.id ?? null);
@@ -75,20 +94,19 @@ export function OnboardingSteps({
         <div className="mx-auto mb-3 flex h-12 w-12 items-center justify-center rounded-full bg-primary/15">
           <Check className="h-6 w-6 text-primary" />
         </div>
-        <h3 className="text-base font-semibold text-foreground mb-1">{t("components.onboardingSteps.complete")}</h3>
-        <p className="text-sm text-muted-foreground">{t("components.onboardingSteps.completeDesc")}</p>
+        <h3 className="text-base font-semibold text-foreground mb-1">{L.complete}</h3>
+        <p className="text-sm text-muted-foreground">{L.completeDesc}</p>
       </div>
     );
   }
 
   return (
     <div className={cn("rounded-lg border border-border bg-card overflow-hidden", className)}>
-      {/* Header with progress */}
       <div className="px-4 py-3 border-b border-border">
         <div className="flex items-center justify-between mb-2">
-          <h3 className="text-sm font-semibold text-foreground">{t("usageMeter.onboardingTitle", { defaultValue: "Mise en route" })}</h3>
+          <h3 className="text-sm font-semibold text-foreground">{L.title}</h3>
           <span className="text-xs font-mono text-muted-foreground">
-            {t("components.onboardingSteps.steps", { completed: completedCount, total: totalCount })}
+            {L.steps(completedCount, totalCount)}
           </span>
         </div>
         <div className="h-1.5 w-full rounded-full bg-muted overflow-hidden">
@@ -99,7 +117,6 @@ export function OnboardingSteps({
         </div>
       </div>
 
-      {/* Steps list */}
       <div className="divide-y divide-border">
         {steps.map((step) => {
           const isExpanded = expandedStep === step.id;
@@ -119,7 +136,6 @@ export function OnboardingSteps({
                 className="w-full flex items-center gap-3 px-4 py-3 text-left hover:bg-muted/20 transition-colors"
                 onClick={() => !isDone && !isSkipped && setExpandedStep(isExpanded ? null : step.id)}
               >
-                {/* Step indicator */}
                 <div className="flex-shrink-0">
                   {isDone ? (
                     <div className="h-5 w-5 rounded-full bg-primary flex items-center justify-center">
@@ -155,7 +171,6 @@ export function OnboardingSteps({
                 )}
               </button>
 
-              {/* Expanded content */}
               {isExpanded && !isDone && !isSkipped && (
                 <div className="px-4 pb-4 pl-12">
                   <p className="text-sm text-muted-foreground mb-3">{step.description}</p>
@@ -175,14 +190,14 @@ export function OnboardingSteps({
                       onClick={() => handleComplete(step.id)}
                       className="text-sm font-medium px-3 py-1.5 rounded-md border border-border text-foreground hover:bg-secondary transition-colors"
                     >
-                      {t("components.onboardingSteps.markDone")}
+                      {L.markDone}
                     </button>
                     {step.skippable !== false && (
                       <button
                         onClick={() => handleSkip(step.id)}
                         className="text-sm text-muted-foreground hover:text-foreground transition-colors ml-auto"
                       >
-                        {t("components.onboardingSteps.skip")}
+                        {L.skip}
                       </button>
                     )}
                   </div>

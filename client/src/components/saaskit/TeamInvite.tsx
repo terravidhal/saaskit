@@ -6,6 +6,8 @@
  * Invitation par email avec sélection de rôle
  */
 
+"use client";
+
 import { useState } from "react";
 import { UserPlus, X, Mail, ChevronDown, Check, Clock } from "lucide-react";
 import { cn } from "@/lib/utils";

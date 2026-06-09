@@ -6,6 +6,8 @@
  * Ligne de facture avec statut, montant, téléchargement
  */
 
+"use client";
+
 import { Download, FileText, ExternalLink } from "lucide-react";
 import { cn } from "@/lib/utils";
 
