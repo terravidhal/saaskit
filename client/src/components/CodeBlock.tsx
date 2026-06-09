@@ -187,3 +187,71 @@ export function InstallBlock({ command, className }: InstallBlockProps) {
     </div>
   );
 }
+
+/* PackageManagerBlock — tabbed install command (pnpm / npm / yarn / bun) */
+type PkgManager = "pnpm" | "npm" | "yarn" | "bun";
+
+const pmCommands: Record<PkgManager, (args: string) => string> = {
+  pnpm: (args) => `pnpm dlx shadcn@latest ${args}`,
+  npm:  (args) => `npx shadcn@latest ${args}`,
+  yarn: (args) => `yarn dlx shadcn@latest ${args}`,
+  bun:  (args) => `bunx --bun shadcn@latest ${args}`,
+};
+
+interface PackageManagerBlockProps {
+  /** shadcn args — e.g. "add @saaskit/pricing-table" or "registry add @saaskit" */
+  args: string;
+  className?: string;
+}
+
+export function PackageManagerBlock({ args, className }: PackageManagerBlockProps) {
+  const [active, setActive] = useState<PkgManager>("pnpm");
+  const [copied, setCopied] = useState(false);
+  const command = pmCommands[active](args);
+
+  const handleCopy = async () => {
+    await navigator.clipboard.writeText(command);
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
+  };
+
+  return (
+    <div className={cn("rounded-lg border border-border overflow-hidden", className)}>
+      {/* Package manager tabs */}
+      <div className="flex items-center border-b border-border bg-muted/20">
+        {(["pnpm", "npm", "yarn", "bun"] as PkgManager[]).map((pm) => (
+          <button
+            key={pm}
+            onClick={() => setActive(pm)}
+            className={cn(
+              "px-3 py-2 text-xs font-mono font-medium transition-colors border-b-2",
+              active === pm
+                ? "text-primary border-primary"
+                : "text-muted-foreground border-transparent hover:text-foreground"
+            )}
+          >
+            {pm}
+          </button>
+        ))}
+      </div>
+      {/* Command line */}
+      <div className="flex items-center gap-2 px-4 py-3 bg-[oklch(0.08_0.005_270)]">
+        <span className="text-primary/60 font-mono text-sm select-none flex-shrink-0">$</span>
+        <code className="flex-1 text-foreground/90 font-mono text-sm overflow-x-auto whitespace-nowrap">
+          {command}
+        </code>
+        <button
+          onClick={handleCopy}
+          className="p-1 rounded hover:bg-white/10 text-muted-foreground hover:text-foreground transition-colors flex-shrink-0"
+          aria-label="Copy command"
+        >
+          {copied ? (
+            <Check className="h-3.5 w-3.5 text-primary" />
+          ) : (
+            <Copy className="h-3.5 w-3.5" />
+          )}
+        </button>
+      </div>
+    </div>
+  );
+}

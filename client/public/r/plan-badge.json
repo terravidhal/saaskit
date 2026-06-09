@@ -1,21 +1,21 @@
 {
-    "name":  "plan-badge",
-    "type":  "registry:component",
-    "dependencies":  [
-                         "lucide-react"
-                     ],
-    "files":  [
-                  {
-                      "path":  "components/saaskit/plan-badge.tsx",
-                      "content":  "/**\r\n * @saaskit/plan-badge\r\n * Design: Developer-first Brutalism Doux — dark bg, emerald accent\r\n * Usage: npx shadcn add @saaskit/plan-badge\r\n *\r\n * Badge Free / Pro / Enterprise dans le header\r\n */\r\n\r\n\"use client\";\r\n\r\nimport { Zap, Building2, Sparkles } from \"lucide-react\";\r\nimport { cn } from \"@/lib/utils\";\r\n\r\nexport type Plan = \"free\" | \"pro\" | \"enterprise\" | \"trial\";\r\n\r\ninterface PlanBadgeProps {\r\n  plan: Plan;\r\n  size?: \"sm\" | \"md\" | \"lg\";\r\n  showIcon?: boolean;\r\n  onClick?: () =\u003e void;\r\n  className?: string;\r\n}\r\n\r\nconst planConfig: Record\u003c\r\n  Plan,\r\n  { label: string; icon: React.ElementType; className: string }\r\n\u003e = {\r\n  free: {\r\n    label: \"Free\",\r\n    icon: Sparkles,\r\n    className: \"bg-muted text-muted-foreground border border-border\",\r\n  },\r\n  trial: {\r\n    label: \"Trial\",\r\n    icon: Zap,\r\n    className: \"bg-yellow-500/10 text-yellow-400 border border-yellow-500/25\",\r\n  },\r\n  pro: {\r\n    label: \"Pro\",\r\n    icon: Zap,\r\n    className: \"bg-primary/15 text-primary border border-primary/30\",\r\n  },\r\n  enterprise: {\r\n    label: \"Enterprise\",\r\n    icon: Building2,\r\n    className: \"bg-[oklch(0.75_0.15_80/15%)] text-[oklch(0.80_0.15_80)] border border-[oklch(0.75_0.15_80/30%)]\",\r\n  },\r\n};\r\n\r\nconst sizeConfig = {\r\n  sm: {\r\n    badge: \"text-xs px-1.5 py-0.5 gap-1\",\r\n    icon: \"h-2.5 w-2.5\",\r\n  },\r\n  md: {\r\n    badge: \"text-xs px-2 py-0.5 gap-1.5\",\r\n    icon: \"h-3 w-3\",\r\n  },\r\n  lg: {\r\n    badge: \"text-sm px-2.5 py-1 gap-1.5\",\r\n    icon: \"h-3.5 w-3.5\",\r\n  },\r\n};\r\n\r\nexport function PlanBadge({\r\n  plan,\r\n  size = \"md\",\r\n  showIcon = true,\r\n  onClick,\r\n  className,\r\n}: PlanBadgeProps) {\r\n  const config = planConfig[plan];\r\n  const sizes = sizeConfig[size];\r\n  const Icon = config.icon;\r\n\r\n  const Component = onClick ? \"button\" : \"span\";\r\n\r\n  return (\r\n    \u003cComponent\r\n      onClick={onClick}\r\n      className={cn(\r\n        \"inline-flex items-center rounded-full font-semibold font-mono transition-opacity\",\r\n        sizes.badge,\r\n        config.className,\r\n        onClick \u0026\u0026 \"hover:opacity-80 cursor-pointer\",\r\n        className\r\n      )}\r\n    \u003e\r\n      {showIcon \u0026\u0026 \u003cIcon className={cn(sizes.icon, \"flex-shrink-0\")} /\u003e}\r\n      {config.label}\r\n    \u003c/Component\u003e\r\n  );\r\n}\r\n\r\n/* Compound: PlanBadgeWithCTA — badge cliquable avec tooltip upgrade */\r\ninterface PlanBadgeWithCTAProps extends PlanBadgeProps {\r\n  onUpgrade?: () =\u003e void;\r\n  upgradeLabel?: string;\r\n}\r\n\r\nexport function PlanBadgeWithCTA({\r\n  plan,\r\n  onUpgrade,\r\n  upgradeLabel = \"Passer au Pro\",\r\n  ...props\r\n}: PlanBadgeWithCTAProps) {\r\n  if (plan === \"free\" || plan === \"trial\") {\r\n    return (\r\n      \u003cbutton\r\n        onClick={onUpgrade}\r\n        className=\"group flex items-center gap-1.5\"\r\n        title={upgradeLabel}\r\n      \u003e\r\n        \u003cPlanBadge plan={plan} {...props} /\u003e\r\n        \u003cspan className=\"text-xs text-muted-foreground group-hover:text-primary transition-colors hidden sm:inline\"\u003e\r\n          → {upgradeLabel}\r\n        \u003c/span\u003e\r\n      \u003c/button\u003e\r\n    );\r\n  }\r\n\r\n  return \u003cPlanBadge plan={plan} {...props} /\u003e;\r\n}\r\n",
-                      "type":  "registry:component",
-                      "target":  "components/saaskit/plan-badge.tsx"
-                  }
-              ],
-    "title":  "PlanBadge",
-    "description":  "Badge Free Pro Enterprise dans le header",
-    "categories":  [
-                       "identity",
-                       "saas"
-                   ]
+  "name": "plan-badge",
+  "type": "registry:component",
+  "dependencies": [
+    "lucide-react"
+  ],
+  "files": [
+    {
+      "path": "components/saaskit/plan-badge.tsx",
+      "content": "\"use client\";\n\nimport { Zap, Building2, Sparkles } from \"lucide-react\";\nimport { cn } from \"@/lib/utils\";\n\ntype Lang = \"en\" | \"fr\";\n\nexport type Plan = \"free\" | \"pro\" | \"enterprise\" | \"trial\";\n\ninterface PlanBadgeProps {\n  plan: Plan;\n  size?: \"sm\" | \"md\" | \"lg\";\n  showIcon?: boolean;\n  onClick?: () => void;\n  lang?: Lang;\n  className?: string;\n}\n\nconst planConfig: Record<Plan, { label: string; icon: React.ElementType; className: string }> = {\n  free: {\n    label: \"Free\",\n    icon: Sparkles,\n    className: \"bg-muted text-muted-foreground border border-border\",\n  },\n  trial: {\n    label: \"Trial\",\n    icon: Zap,\n    className: \"bg-yellow-500/10 text-yellow-400 border border-yellow-500/25\",\n  },\n  pro: {\n    label: \"Pro\",\n    icon: Zap,\n    className: \"bg-primary/15 text-primary border border-primary/30\",\n  },\n  enterprise: {\n    label: \"Enterprise\",\n    icon: Building2,\n    className: \"bg-[oklch(0.75_0.15_80/15%)] text-[oklch(0.80_0.15_80)] border border-[oklch(0.75_0.15_80/30%)]\",\n  },\n};\n\nconst sizeConfig = {\n  sm: { badge: \"text-xs px-1.5 py-0.5 gap-1\", icon: \"h-2.5 w-2.5\" },\n  md: { badge: \"text-xs px-2 py-0.5 gap-1.5\", icon: \"h-3 w-3\" },\n  lg: { badge: \"text-sm px-2.5 py-1 gap-1.5\", icon: \"h-3.5 w-3.5\" },\n};\n\nexport function PlanBadge({\n  plan,\n  size = \"md\",\n  showIcon = true,\n  onClick,\n  className,\n}: PlanBadgeProps) {\n  const config = planConfig[plan];\n  const sizes = sizeConfig[size];\n  const Icon = config.icon;\n  const Component = onClick ? \"button\" : \"span\";\n\n  return (\n    <Component\n      onClick={onClick}\n      className={cn(\n        \"inline-flex items-center rounded-full font-semibold font-mono transition-opacity\",\n        sizes.badge,\n        config.className,\n        onClick && \"hover:opacity-80 cursor-pointer\",\n        className\n      )}\n    >\n      {showIcon && <Icon className={cn(sizes.icon, \"flex-shrink-0\")} />}\n      {config.label}\n    </Component>\n  );\n}\n\n/* Compound: PlanBadgeWithCTA — badge cliquable avec CTA upgrade */\ninterface PlanBadgeWithCTAProps extends PlanBadgeProps {\n  onUpgrade?: () => void;\n  upgradeLabel?: string;\n}\n\nexport function PlanBadgeWithCTA({\n  plan,\n  lang = \"en\",\n  onUpgrade,\n  upgradeLabel,\n  ...props\n}: PlanBadgeWithCTAProps) {\n  const defaultLabel = lang === \"fr\" ? \"Passer au Pro\" : \"Upgrade to Pro\";\n  const label = upgradeLabel ?? defaultLabel;\n\n  if (plan === \"free\" || plan === \"trial\") {\n    return (\n      <button onClick={onUpgrade} className=\"group flex items-center gap-1.5\" title={label}>\n        <PlanBadge plan={plan} {...props} />\n        <span className=\"text-xs text-muted-foreground group-hover:text-primary transition-colors hidden sm:inline\">\n          → {label}\n        </span>\n      </button>\n    );\n  }\n\n  return <PlanBadge plan={plan} {...props} />;\n}\n",
+      "type": "registry:component",
+      "target": "components/saaskit/plan-badge.tsx"
+    }
+  ],
+  "title": "PlanBadge",
+  "description": "Badge Free / Pro / Enterprise dans le header",
+  "categories": [
+    "identity",
+    "saas"
+  ]
 }

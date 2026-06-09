@@ -1,15 +1,9 @@
-/**
- * @saaskit/plan-badge
- * Design: Developer-first Brutalism Doux — dark bg, emerald accent
- * Usage: npx shadcn add @saaskit/plan-badge
- *
- * Badge Free / Pro / Enterprise dans le header
- */
-
 "use client";
 
 import { Zap, Building2, Sparkles } from "lucide-react";
 import { cn } from "@/lib/utils";
+
+type Lang = "en" | "fr";
 
 export type Plan = "free" | "pro" | "enterprise" | "trial";
 
@@ -18,13 +12,11 @@ interface PlanBadgeProps {
   size?: "sm" | "md" | "lg";
   showIcon?: boolean;
   onClick?: () => void;
+  lang?: Lang;
   className?: string;
 }
 
-const planConfig: Record<
-  Plan,
-  { label: string; icon: React.ElementType; className: string }
-> = {
+const planConfig: Record<Plan, { label: string; icon: React.ElementType; className: string }> = {
   free: {
     label: "Free",
     icon: Sparkles,
@@ -48,18 +40,9 @@ const planConfig: Record<
 };
 
 const sizeConfig = {
-  sm: {
-    badge: "text-xs px-1.5 py-0.5 gap-1",
-    icon: "h-2.5 w-2.5",
-  },
-  md: {
-    badge: "text-xs px-2 py-0.5 gap-1.5",
-    icon: "h-3 w-3",
-  },
-  lg: {
-    badge: "text-sm px-2.5 py-1 gap-1.5",
-    icon: "h-3.5 w-3.5",
-  },
+  sm: { badge: "text-xs px-1.5 py-0.5 gap-1", icon: "h-2.5 w-2.5" },
+  md: { badge: "text-xs px-2 py-0.5 gap-1.5", icon: "h-3 w-3" },
+  lg: { badge: "text-sm px-2.5 py-1 gap-1.5", icon: "h-3.5 w-3.5" },
 };
 
 export function PlanBadge({
@@ -72,7 +55,6 @@ export function PlanBadge({
   const config = planConfig[plan];
   const sizes = sizeConfig[size];
   const Icon = config.icon;
-
   const Component = onClick ? "button" : "span";
 
   return (
@@ -92,7 +74,7 @@ export function PlanBadge({
   );
 }
 
-/* Compound: PlanBadgeWithCTA — badge cliquable avec tooltip upgrade */
+/* Compound: PlanBadgeWithCTA — badge cliquable avec CTA upgrade */
 interface PlanBadgeWithCTAProps extends PlanBadgeProps {
   onUpgrade?: () => void;
   upgradeLabel?: string;
@@ -100,20 +82,20 @@ interface PlanBadgeWithCTAProps extends PlanBadgeProps {
 
 export function PlanBadgeWithCTA({
   plan,
+  lang = "en",
   onUpgrade,
-  upgradeLabel = "Passer au Pro",
+  upgradeLabel,
   ...props
 }: PlanBadgeWithCTAProps) {
+  const defaultLabel = lang === "fr" ? "Passer au Pro" : "Upgrade to Pro";
+  const label = upgradeLabel ?? defaultLabel;
+
   if (plan === "free" || plan === "trial") {
     return (
-      <button
-        onClick={onUpgrade}
-        className="group flex items-center gap-1.5"
-        title={upgradeLabel}
-      >
+      <button onClick={onUpgrade} className="group flex items-center gap-1.5" title={label}>
         <PlanBadge plan={plan} {...props} />
         <span className="text-xs text-muted-foreground group-hover:text-primary transition-colors hidden sm:inline">
-          → {upgradeLabel}
+          → {label}
         </span>
       </button>
     );

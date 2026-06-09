@@ -4,6 +4,8 @@ import { useState } from "react";
 import { X, Clock, Zap } from "lucide-react";
 import { cn } from "@/lib/utils";
 
+type Lang = "en" | "fr";
+
 interface TrialBannerLabels {
   expireToday?: string;
   oneDayLeft?: string;
@@ -13,11 +15,31 @@ interface TrialBannerLabels {
   close?: string;
 }
 
+const T: Record<Lang, Required<TrialBannerLabels>> = {
+  en: {
+    expireToday: "Your trial expires today",
+    oneDayLeft: "1 day left on your trial",
+    daysLeft: (count) => `${count} days left on your trial`,
+    upgradeContinue: (plan) => `— Upgrade to ${plan} to continue without interruption.`,
+    upgradeBtn: (plan) => `Upgrade to ${plan}`,
+    close: "Close",
+  },
+  fr: {
+    expireToday: "Votre essai expire aujourd'hui",
+    oneDayLeft: "Il reste 1 jour à votre essai",
+    daysLeft: (count) => `Il reste ${count} jours à votre essai`,
+    upgradeContinue: (plan) => `— Passez au plan ${plan} pour continuer sans interruption.`,
+    upgradeBtn: (plan) => `Passer au ${plan}`,
+    close: "Fermer",
+  },
+};
+
 interface TrialBannerProps extends Omit<React.ComponentProps<"div">, "children"> {
   daysRemaining: number;
   onUpgrade?: () => void;
   onDismiss?: () => void;
   planName?: string;
+  lang?: Lang;
   labels?: TrialBannerLabels;
 }
 
@@ -26,6 +48,7 @@ export function TrialBanner({
   onUpgrade,
   onDismiss,
   planName = "Pro",
+  lang = "en",
   labels,
   className,
   ...rest
@@ -34,13 +57,14 @@ export function TrialBanner({
 
   if (dismissed) return null;
 
+  const base = T[lang];
   const L = {
-    expireToday: labels?.expireToday ?? "Votre essai expire aujourd'hui",
-    oneDayLeft: labels?.oneDayLeft ?? "Il reste 1 jour à votre essai",
-    daysLeft: labels?.daysLeft ?? ((count: number) => `Il reste ${count} jours à votre essai`),
-    upgradeContinue: labels?.upgradeContinue ?? ((plan: string) => `— Passez au plan ${plan} pour continuer sans interruption.`),
-    upgradeBtn: labels?.upgradeBtn ?? ((plan: string) => `Passer au ${plan}`),
-    close: labels?.close ?? "Fermer",
+    expireToday: labels?.expireToday ?? base.expireToday,
+    oneDayLeft: labels?.oneDayLeft ?? base.oneDayLeft,
+    daysLeft: labels?.daysLeft ?? base.daysLeft,
+    upgradeContinue: labels?.upgradeContinue ?? base.upgradeContinue,
+    upgradeBtn: labels?.upgradeBtn ?? base.upgradeBtn,
+    close: labels?.close ?? base.close,
   };
 
   const urgency = daysRemaining <= 3 ? "danger" : daysRemaining <= 7 ? "warn" : "normal";

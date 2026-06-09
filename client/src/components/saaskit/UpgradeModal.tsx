@@ -3,6 +3,8 @@
 import { Check, Zap, X } from "lucide-react";
 import { cn } from "@/lib/utils";
 
+type Lang = "en" | "fr";
+
 interface UpgradeModalLabels {
   unlockFeature?: (feature: string) => string;
   featureAvailableIn?: (plan: string) => string;
@@ -15,7 +17,68 @@ interface UpgradeModalLabels {
   savePercent?: (percent: string) => string;
   cta?: (plan: string) => string;
   stayOnPlan?: (plan: string) => string;
+  defaultFeaturesPro?: string[];
+  defaultFeaturesEnterprise?: string[];
 }
+
+const T: Record<Lang, Required<UpgradeModalLabels>> = {
+  en: {
+    unlockFeature: (feature) => `Unlock ${feature}`,
+    featureAvailableIn: (plan) => `This feature is available from the ${plan} plan.`,
+    passToPlan: (plan) => `Upgrade to ${plan}`,
+    subtitle: "Access advanced features to accelerate your growth.",
+    featureTitle: "Unlock this feature",
+    startingFrom: "Starting from",
+    perMonth: "/month",
+    billedAnnual: "Billed annually",
+    savePercent: (percent) => `Save ${percent}`,
+    cta: (plan) => `Upgrade to ${plan} now`,
+    stayOnPlan: (plan) => `Stay on ${plan} plan`,
+    defaultFeaturesPro: [
+      "Unlimited team members",
+      "500,000 API calls / month",
+      "50 GB storage",
+      "Priority support",
+      "Audit logs",
+    ],
+    defaultFeaturesEnterprise: [
+      "Everything in Pro",
+      "SSO / SAML",
+      "99.9% guaranteed SLA",
+      "Dedicated account manager",
+      "Unlimited API calls",
+      "Custom contracts",
+    ],
+  },
+  fr: {
+    unlockFeature: (feature) => `Débloquez ${feature}`,
+    featureAvailableIn: (plan) => `Cette fonctionnalité est disponible à partir du plan ${plan}.`,
+    passToPlan: (plan) => `Passez au plan ${plan}`,
+    subtitle: "Accédez à des fonctionnalités avancées pour accélérer votre croissance.",
+    featureTitle: "Débloquer cette fonctionnalité",
+    startingFrom: "À partir de",
+    perMonth: "/mois",
+    billedAnnual: "Facturé annuellement",
+    savePercent: (percent) => `Économisez ${percent}`,
+    cta: (plan) => `Passer au ${plan} maintenant`,
+    stayOnPlan: (plan) => `Rester sur le plan ${plan}`,
+    defaultFeaturesPro: [
+      "Membres d'équipe illimités",
+      "500 000 appels API / mois",
+      "50 GB de stockage",
+      "Support prioritaire",
+      "Audit logs",
+    ],
+    defaultFeaturesEnterprise: [
+      "Tout le plan Pro",
+      "SSO / SAML",
+      "SLA garanti 99.9%",
+      "Gestionnaire de compte dédié",
+      "Appels API illimités",
+      "Contrats personnalisés",
+    ],
+  },
+};
 
 interface UpgradeModalProps {
   open: boolean;
@@ -26,6 +89,7 @@ interface UpgradeModalProps {
   targetPlan?: "pro" | "enterprise";
   features?: string[];
   price?: { monthly: number; annual: number };
+  lang?: Lang;
   labels?: UpgradeModalLabels;
   className?: string;
 }
@@ -39,42 +103,29 @@ export function UpgradeModal({
   targetPlan = "pro",
   features,
   price = { monthly: 29, annual: 23 },
+  lang = "en",
   labels,
   className,
 }: UpgradeModalProps) {
   if (!open) return null;
 
+  const base = T[lang];
   const L = {
-    unlockFeature: labels?.unlockFeature ?? ((feature: string) => `Débloquez ${feature}`),
-    featureAvailableIn: labels?.featureAvailableIn ?? ((plan: string) => `Cette fonctionnalité est disponible à partir du plan ${plan}.`),
-    passToPlan: labels?.passToPlan ?? ((plan: string) => `Passez au plan ${plan}`),
-    subtitle: labels?.subtitle ?? "Accédez à des fonctionnalités avancées pour accélérer votre croissance.",
-    startingFrom: labels?.startingFrom ?? "À partir de",
-    perMonth: labels?.perMonth ?? "/mois",
-    billedAnnual: labels?.billedAnnual ?? "Facturé annuellement",
-    savePercent: labels?.savePercent ?? ((percent: string) => `Économisez ${percent}`),
-    cta: labels?.cta ?? ((plan: string) => `Passer au ${plan} maintenant`),
-    stayOnPlan: labels?.stayOnPlan ?? ((plan: string) => `Rester sur le plan ${plan}`),
+    unlockFeature: labels?.unlockFeature ?? base.unlockFeature,
+    featureAvailableIn: labels?.featureAvailableIn ?? base.featureAvailableIn,
+    passToPlan: labels?.passToPlan ?? base.passToPlan,
+    subtitle: labels?.subtitle ?? base.subtitle,
+    startingFrom: labels?.startingFrom ?? base.startingFrom,
+    perMonth: labels?.perMonth ?? base.perMonth,
+    billedAnnual: labels?.billedAnnual ?? base.billedAnnual,
+    savePercent: labels?.savePercent ?? base.savePercent,
+    cta: labels?.cta ?? base.cta,
+    stayOnPlan: labels?.stayOnPlan ?? base.stayOnPlan,
+    defaultFeaturesPro: labels?.defaultFeaturesPro ?? base.defaultFeaturesPro,
+    defaultFeaturesEnterprise: labels?.defaultFeaturesEnterprise ?? base.defaultFeaturesEnterprise,
   };
 
-  const defaultFeatures = {
-    pro: [
-      "Membres d'équipe illimités",
-      "500 000 appels API / mois",
-      "50 GB de stockage",
-      "Support prioritaire",
-      "Audit logs",
-    ],
-    enterprise: [
-      "Tout le plan Pro",
-      "SSO / SAML",
-      "SLA garanti 99.9%",
-      "Gestionnaire de compte dédié",
-      "Appels API illimités",
-      "Contrats personnalisés",
-    ],
-  };
-
+  const defaultFeatures = { pro: L.defaultFeaturesPro, enterprise: L.defaultFeaturesEnterprise };
   const featureList = features ?? defaultFeatures[targetPlan];
   const planLabel = targetPlan === "pro" ? "Pro" : "Enterprise";
   const planBadgeClass =
@@ -84,10 +135,7 @@ export function UpgradeModal({
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
-      <div
-        className="absolute inset-0 bg-black/60 backdrop-blur-sm"
-        onClick={onClose}
-      />
+      <div className="absolute inset-0 bg-black/60 backdrop-blur-sm" onClick={onClose} />
 
       <div
         className={cn(
@@ -119,9 +167,7 @@ export function UpgradeModal({
                 <h2 className="text-lg font-bold text-foreground font-[Fraunces] mb-1">
                   {L.unlockFeature(featureName)}
                 </h2>
-                <p className="text-sm text-muted-foreground">
-                  {L.featureAvailableIn(planLabel)}
-                </p>
+                <p className="text-sm text-muted-foreground">{L.featureAvailableIn(planLabel)}</p>
               </>
             ) : (
               <>

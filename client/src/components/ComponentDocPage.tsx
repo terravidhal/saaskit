@@ -6,7 +6,7 @@
 import { ArrowLeft, ArrowRight } from "lucide-react";
 import { Link } from "wouter";
 import { DocLayout } from "./DocLayout";
-import { CodeBlock, InstallBlock } from "./CodeBlock";
+import { CodeBlock, PackageManagerBlock } from "./CodeBlock";
 import { cn } from "@/lib/utils";
 import { useTranslation } from "react-i18next";
 
@@ -71,7 +71,7 @@ export function ComponentDocPage({
           <h2 className="text-sm font-semibold text-foreground uppercase tracking-widest mb-3">
             {t("docs.labels.installation", { defaultValue: "Installation" })}
           </h2>
-          <InstallBlock command={installCmd} />
+          <PackageManagerBlock args={installCmd.replace(/^[^\s]+\s+shadcn(@latest)?\s+/, "")} />
         </section>
 
         {/* Preview */}

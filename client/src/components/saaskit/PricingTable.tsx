@@ -5,6 +5,8 @@ import { useState } from "react";
 import { Check, Minus, Zap } from "lucide-react";
 import { cn } from "@/lib/utils";
 
+type Lang = "en" | "fr";
+
 interface PricingFeature {
   name: string;
   free: boolean | string;
@@ -25,51 +27,90 @@ interface PricingTableLabels {
   contactSales?: string;
   feature?: string;
   billedAnnual?: (amount: string) => string;
-  descriptions?: {
-    free?: string;
-    pro?: string;
-    enterprise?: string;
-  };
+  descriptions?: { free?: string; pro?: string; enterprise?: string };
 }
+
+const T: Record<Lang, Required<Omit<PricingTableLabels, "descriptions">> & { descriptions: Required<NonNullable<PricingTableLabels["descriptions"]>> }> = {
+  en: {
+    monthly: "Monthly",
+    annual: "Annual",
+    recommended: "Recommended",
+    free: "FREE",
+    pro: "PRO",
+    enterprise: "ENTERPRISE",
+    perMonth: "/month",
+    startFree: "Get started free",
+    upgradePro: "Upgrade to Pro",
+    contactSales: "Contact sales",
+    feature: "Feature",
+    billedAnnual: (amount) => `Billed ${amount}/year`,
+    descriptions: {
+      free: "For getting started.",
+      pro: "For growing teams.",
+      enterprise: "For large organizations.",
+    },
+  },
+  fr: {
+    monthly: "Mensuel",
+    annual: "Annuel",
+    recommended: "Recommandé",
+    free: "GRATUIT",
+    pro: "PRO",
+    enterprise: "ENTERPRISE",
+    perMonth: "/mois",
+    startFree: "Commencer gratuitement",
+    upgradePro: "Passer au Pro",
+    contactSales: "Contacter les ventes",
+    feature: "Fonctionnalité",
+    billedAnnual: (amount) => `Facturé ${amount}/an`,
+    descriptions: {
+      free: "Pour démarrer et tester.",
+      pro: "Pour les équipes en croissance.",
+      enterprise: "Pour les grandes organisations.",
+    },
+  },
+};
 
 interface PricingTableProps extends Omit<React.ComponentProps<"div">, "children"> {
   features?: PricingFeature[];
   onSelectPlan?: (plan: "free" | "pro" | "enterprise", billing: "monthly" | "annual") => void;
+  lang?: Lang;
   labels?: PricingTableLabels;
 }
 
-export function PricingTable({ features, onSelectPlan, labels, className, ...rest }: PricingTableProps) {
+export function PricingTable({ features, onSelectPlan, lang = "en", labels, className, ...rest }: PricingTableProps) {
   const [billing, setBilling] = useState<"monthly" | "annual">("monthly");
 
+  const base = T[lang];
   const L = {
-    monthly: labels?.monthly ?? "Mensuel",
-    annual: labels?.annual ?? "Annuel",
-    recommended: labels?.recommended ?? "Recommandé",
-    free: labels?.free ?? "GRATUIT",
-    pro: labels?.pro ?? "PRO",
-    enterprise: labels?.enterprise ?? "ENTERPRISE",
-    perMonth: labels?.perMonth ?? "/mois",
-    startFree: labels?.startFree ?? "Commencer gratuitement",
-    upgradePro: labels?.upgradePro ?? "Passer au Pro",
-    contactSales: labels?.contactSales ?? "Contacter les ventes",
-    feature: labels?.feature ?? "Fonctionnalité",
-    billedAnnual: labels?.billedAnnual ?? ((amount: string) => `Facturé ${amount}/an`),
+    monthly: labels?.monthly ?? base.monthly,
+    annual: labels?.annual ?? base.annual,
+    recommended: labels?.recommended ?? base.recommended,
+    free: labels?.free ?? base.free,
+    pro: labels?.pro ?? base.pro,
+    enterprise: labels?.enterprise ?? base.enterprise,
+    perMonth: labels?.perMonth ?? base.perMonth,
+    startFree: labels?.startFree ?? base.startFree,
+    upgradePro: labels?.upgradePro ?? base.upgradePro,
+    contactSales: labels?.contactSales ?? base.contactSales,
+    feature: labels?.feature ?? base.feature,
+    billedAnnual: labels?.billedAnnual ?? base.billedAnnual,
     descriptions: {
-      free: labels?.descriptions?.free ?? "Pour démarrer et tester.",
-      pro: labels?.descriptions?.pro ?? "Pour les équipes en croissance.",
-      enterprise: labels?.descriptions?.enterprise ?? "Pour les grandes organisations.",
+      free: labels?.descriptions?.free ?? base.descriptions.free,
+      pro: labels?.descriptions?.pro ?? base.descriptions.pro,
+      enterprise: labels?.descriptions?.enterprise ?? base.descriptions.enterprise,
     },
   };
 
   const defaultFeatures: PricingFeature[] = [
-    { name: "Projets actifs", free: "3", pro: "Illimité", enterprise: "Illimité" },
-    { name: "Membres d'équipe", free: "1", pro: "10", enterprise: "Illimité" },
-    { name: "Appels API / mois", free: "10 000", pro: "500 000", enterprise: "Illimité" },
-    { name: "Stockage", free: "1 GB", pro: "50 GB", enterprise: "500 GB" },
-    { name: "Support prioritaire", free: false, pro: true, enterprise: true },
+    { name: lang === "fr" ? "Projets actifs" : "Active projects", free: "3", pro: "Unlimited", enterprise: "Unlimited" },
+    { name: lang === "fr" ? "Membres d'équipe" : "Team members", free: "1", pro: "10", enterprise: "Unlimited" },
+    { name: lang === "fr" ? "Appels API / mois" : "API calls / month", free: "10,000", pro: "500,000", enterprise: "Unlimited" },
+    { name: lang === "fr" ? "Stockage" : "Storage", free: "1 GB", pro: "50 GB", enterprise: "500 GB" },
+    { name: lang === "fr" ? "Support prioritaire" : "Priority support", free: false, pro: true, enterprise: true },
     { name: "SSO / SAML", free: false, pro: false, enterprise: true },
-    { name: "Audit logs", free: false, pro: true, enterprise: true },
-    { name: "SLA garanti", free: false, pro: false, enterprise: true },
+    { name: lang === "fr" ? "Audit logs" : "Audit logs", free: false, pro: true, enterprise: true },
+    { name: lang === "fr" ? "SLA garanti" : "Guaranteed SLA", free: false, pro: false, enterprise: true },
   ];
 
   const displayFeatures = features ?? defaultFeatures;
@@ -223,15 +264,9 @@ export function PricingTable({ features, onSelectPlan, labels, className, ...res
                 )}
               >
                 <td className="px-4 py-3 text-foreground">{feature.name}</td>
-                <td className="px-4 py-3 text-center">
-                  <FeatureValue value={feature.free} />
-                </td>
-                <td className="px-4 py-3 text-center">
-                  <FeatureValue value={feature.pro} />
-                </td>
-                <td className="px-4 py-3 text-center">
-                  <FeatureValue value={feature.enterprise} />
-                </td>
+                <td className="px-4 py-3 text-center"><FeatureValue value={feature.free} /></td>
+                <td className="px-4 py-3 text-center"><FeatureValue value={feature.pro} /></td>
+                <td className="px-4 py-3 text-center"><FeatureValue value={feature.enterprise} /></td>
               </tr>
             ))}
           </tbody>

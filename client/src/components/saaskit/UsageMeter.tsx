@@ -3,11 +3,26 @@
 import { cn } from "@/lib/utils";
 import { TrendingUp, AlertTriangle, AlertCircle } from "lucide-react";
 
+type Lang = "en" | "fr";
+
 interface UsageMeterLabels {
   limitDanger?: string;
   limitWarn?: string;
   increase?: string;
 }
+
+const T: Record<Lang, Required<UsageMeterLabels>> = {
+  en: {
+    limitDanger: "Limit almost reached — new requests will be blocked.",
+    limitWarn: "You are approaching your monthly limit.",
+    increase: "Increase",
+  },
+  fr: {
+    limitDanger: "Limite presque atteinte — les nouvelles requêtes seront bloquées.",
+    limitWarn: "Vous approchez de votre limite mensuelle.",
+    increase: "Augmenter",
+  },
+};
 
 interface UsageMeterProps extends Omit<React.ComponentProps<"div">, "children"> {
   label: string;
@@ -18,6 +33,7 @@ interface UsageMeterProps extends Omit<React.ComponentProps<"div">, "children"> 
   dangerThreshold?: number;
   showUpgrade?: boolean;
   onUpgrade?: () => void;
+  lang?: Lang;
   labels?: UsageMeterLabels;
 }
 
@@ -36,23 +52,21 @@ export function UsageMeter({
   dangerThreshold = 90,
   showUpgrade = true,
   onUpgrade,
+  lang = "en",
   labels,
   className,
   ...rest
 }: UsageMeterProps) {
+  const base = T[lang];
   const L = {
-    limitDanger: labels?.limitDanger ?? "Limite presque atteinte — les nouvelles requêtes seront bloquées.",
-    limitWarn: labels?.limitWarn ?? "Vous approchez de votre limite mensuelle.",
-    increase: labels?.increase ?? "Augmenter",
+    limitDanger: labels?.limitDanger ?? base.limitDanger,
+    limitWarn: labels?.limitWarn ?? base.limitWarn,
+    increase: labels?.increase ?? base.increase,
   };
 
   const percentage = Math.min((used / limit) * 100, 100);
   const status =
-    percentage >= dangerThreshold
-      ? "danger"
-      : percentage >= warnThreshold
-      ? "warn"
-      : "normal";
+    percentage >= dangerThreshold ? "danger" : percentage >= warnThreshold ? "warn" : "normal";
 
   return (
     <div className={cn("space-y-2", className)} {...rest}>
@@ -143,9 +157,7 @@ interface UsageMeterGroupProps {
 export function UsageMeterGroup({ title, meters, onUpgrade, className }: UsageMeterGroupProps) {
   return (
     <div className={cn("rounded-lg border border-border bg-card p-4 space-y-4", className)}>
-      {title && (
-        <h3 className="text-sm font-semibold text-foreground">{title}</h3>
-      )}
+      {title && <h3 className="text-sm font-semibold text-foreground">{title}</h3>}
       {meters.map((meter, i) => (
         <UsageMeter key={i} {...meter} onUpgrade={onUpgrade} />
       ))}

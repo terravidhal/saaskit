@@ -4,16 +4,15 @@ import { useState } from "react";
 import { Check, ChevronRight, SkipForward, Circle } from "lucide-react";
 import { cn } from "@/lib/utils";
 
+type Lang = "en" | "fr";
+
 export interface OnboardingStep {
   id: string;
   title: string;
   description: string;
   completed?: boolean;
   skipped?: boolean;
-  action?: {
-    label: string;
-    onClick: () => void;
-  };
+  action?: { label: string; onClick: () => void };
   skippable?: boolean;
 }
 
@@ -26,11 +25,31 @@ interface OnboardingStepsLabels {
   skip?: string;
 }
 
+const T: Record<Lang, Required<OnboardingStepsLabels>> = {
+  en: {
+    title: "Getting started",
+    complete: "Setup complete!",
+    completeDesc: "You're ready to use all features.",
+    steps: (completed, total) => `${completed}/${total} steps`,
+    markDone: "Mark as done",
+    skip: "Skip",
+  },
+  fr: {
+    title: "Mise en route",
+    complete: "Configuration terminée !",
+    completeDesc: "Vous êtes prêt à utiliser toutes les fonctionnalités.",
+    steps: (completed, total) => `${completed}/${total} étapes`,
+    markDone: "Marquer comme fait",
+    skip: "Ignorer",
+  },
+};
+
 interface OnboardingStepsProps {
   steps: OnboardingStep[];
   onStepComplete?: (stepId: string) => void;
   onStepSkip?: (stepId: string) => void;
   onAllComplete?: () => void;
+  lang?: Lang;
   labels?: OnboardingStepsLabels;
   className?: string;
 }
@@ -40,6 +59,7 @@ export function OnboardingSteps({
   onStepComplete,
   onStepSkip,
   onAllComplete,
+  lang = "en",
   labels,
   className,
 }: OnboardingStepsProps) {
@@ -48,13 +68,14 @@ export function OnboardingSteps({
     initialSteps.find((s) => !s.completed && !s.skipped)?.id ?? null
   );
 
+  const base = T[lang];
   const L = {
-    title: labels?.title ?? "Mise en route",
-    complete: labels?.complete ?? "Configuration terminée !",
-    completeDesc: labels?.completeDesc ?? "Vous êtes prêt à utiliser toutes les fonctionnalités.",
-    steps: labels?.steps ?? ((completed: number, total: number) => `${completed}/${total} étapes`),
-    markDone: labels?.markDone ?? "Marquer comme fait",
-    skip: labels?.skip ?? "Ignorer",
+    title: labels?.title ?? base.title,
+    complete: labels?.complete ?? base.complete,
+    completeDesc: labels?.completeDesc ?? base.completeDesc,
+    steps: labels?.steps ?? base.steps,
+    markDone: labels?.markDone ?? base.markDone,
+    skip: labels?.skip ?? base.skip,
   };
 
   const completedCount = steps.filter((s) => s.completed).length;
@@ -63,26 +84,17 @@ export function OnboardingSteps({
   const allDone = completedCount === totalCount;
 
   const handleComplete = (stepId: string) => {
-    setSteps((prev) =>
-      prev.map((s) => (s.id === stepId ? { ...s, completed: true } : s))
-    );
+    setSteps((prev) => prev.map((s) => (s.id === stepId ? { ...s, completed: true } : s)));
     onStepComplete?.(stepId);
-
     const currentIndex = steps.findIndex((s) => s.id === stepId);
     const nextStep = steps.slice(currentIndex + 1).find((s) => !s.completed && !s.skipped);
     setExpandedStep(nextStep?.id ?? null);
-
-    if (completedCount + 1 === totalCount) {
-      onAllComplete?.();
-    }
+    if (completedCount + 1 === totalCount) onAllComplete?.();
   };
 
   const handleSkip = (stepId: string) => {
-    setSteps((prev) =>
-      prev.map((s) => (s.id === stepId ? { ...s, skipped: true } : s))
-    );
+    setSteps((prev) => prev.map((s) => (s.id === stepId ? { ...s, skipped: true } : s)));
     onStepSkip?.(stepId);
-
     const currentIndex = steps.findIndex((s) => s.id === stepId);
     const nextStep = steps.slice(currentIndex + 1).find((s) => !s.completed && !s.skipped);
     setExpandedStep(nextStep?.id ?? null);
@@ -126,11 +138,7 @@ export function OnboardingSteps({
           return (
             <div
               key={step.id}
-              className={cn(
-                "transition-colors",
-                isDone && "opacity-60",
-                isSkipped && "opacity-40"
-              )}
+              className={cn("transition-colors", isDone && "opacity-60", isSkipped && "opacity-40")}
             >
               <button
                 className="w-full flex items-center gap-3 px-4 py-3 text-left hover:bg-muted/20 transition-colors"
@@ -149,7 +157,6 @@ export function OnboardingSteps({
                     <Circle className="h-5 w-5 text-muted-foreground" />
                   )}
                 </div>
-
                 <div className="flex-1 min-w-0">
                   <span
                     className={cn(
@@ -160,7 +167,6 @@ export function OnboardingSteps({
                     {step.title}
                   </span>
                 </div>
-
                 {!isDone && !isSkipped && (
                   <ChevronRight
                     className={cn(
@@ -177,10 +183,7 @@ export function OnboardingSteps({
                   <div className="flex items-center gap-2">
                     {step.action && (
                       <button
-                        onClick={() => {
-                          step.action?.onClick();
-                          handleComplete(step.id);
-                        }}
+                        onClick={() => { step.action?.onClick(); handleComplete(step.id); }}
                         className="text-sm font-medium px-3 py-1.5 rounded-md bg-primary text-primary-foreground hover:opacity-90 transition-opacity"
                       >
                         {step.action.label}

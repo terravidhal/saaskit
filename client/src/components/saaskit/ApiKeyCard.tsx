@@ -1,16 +1,56 @@
-/**
- * @saaskit/api-key-card
- * Design: Developer-first Brutalism Doux — dark bg, emerald accent
- * Usage: npx shadcn add @saaskit/api-key-card
- *
- * Affichage + rotation de clé API masquée
- */
-
 "use client";
 
 import { useState } from "react";
 import { Eye, EyeOff, Copy, RefreshCw, Check, Key, AlertTriangle } from "lucide-react";
 import { cn } from "@/lib/utils";
+
+type Lang = "en" | "fr";
+
+interface ApiKeyCardLabels {
+  revoke?: string;
+  hideKey?: string;
+  revealKey?: string;
+  copyKey?: string;
+  copied?: string;
+  confirmRotation?: string;
+  cancel?: string;
+  confirm?: string;
+  rotate?: string;
+  createdOn?: string;
+  lastUsed?: string;
+  neverUsed?: string;
+}
+
+const T: Record<Lang, Required<ApiKeyCardLabels>> = {
+  en: {
+    revoke: "Revoke",
+    hideKey: "Hide key",
+    revealKey: "Reveal key",
+    copyKey: "Copy key",
+    copied: "Key copied to clipboard",
+    confirmRotation: "Confirm rotation?",
+    cancel: "Cancel",
+    confirm: "Confirm",
+    rotate: "Rotate",
+    createdOn: "Created on",
+    lastUsed: "Last used:",
+    neverUsed: "Never used",
+  },
+  fr: {
+    revoke: "Révoquer",
+    hideKey: "Masquer la clé",
+    revealKey: "Révéler la clé",
+    copyKey: "Copier la clé",
+    copied: "Clé copiée dans le presse-papiers",
+    confirmRotation: "Confirmer la rotation ?",
+    cancel: "Annuler",
+    confirm: "Confirmer",
+    rotate: "Rotation",
+    createdOn: "Créée le",
+    lastUsed: "Dernière utilisation :",
+    neverUsed: "Jamais utilisée",
+  },
+};
 
 interface ApiKeyCardProps {
   name: string;
@@ -22,6 +62,8 @@ interface ApiKeyCardProps {
   onCopy?: (key: string) => void;
   onRevoke?: () => void;
   environment?: "production" | "development" | "test";
+  lang?: Lang;
+  labels?: ApiKeyCardLabels;
   className?: string;
 }
 
@@ -35,12 +77,32 @@ export function ApiKeyCard({
   onCopy,
   onRevoke,
   environment = "production",
+  lang = "en",
+  labels,
   className,
 }: ApiKeyCardProps) {
   const [revealed, setRevealed] = useState(false);
   const [copied, setCopied] = useState(false);
   const [rotating, setRotating] = useState(false);
   const [showRotateConfirm, setShowRotateConfirm] = useState(false);
+
+  const base = T[lang];
+  const L = {
+    revoke: labels?.revoke ?? base.revoke,
+    hideKey: labels?.hideKey ?? base.hideKey,
+    revealKey: labels?.revealKey ?? base.revealKey,
+    copyKey: labels?.copyKey ?? base.copyKey,
+    copied: labels?.copied ?? base.copied,
+    confirmRotation: labels?.confirmRotation ?? base.confirmRotation,
+    cancel: labels?.cancel ?? base.cancel,
+    confirm: labels?.confirm ?? base.confirm,
+    rotate: labels?.rotate ?? base.rotate,
+    createdOn: labels?.createdOn ?? base.createdOn,
+    lastUsed: labels?.lastUsed ?? base.lastUsed,
+    neverUsed: labels?.neverUsed ?? base.neverUsed,
+  };
+
+  const locale = lang === "fr" ? "fr-FR" : "en-US";
 
   const maskedKey = keyValue
     ? `${keyValue.slice(0, prefix ? prefix.length + 4 : 8)}${"•".repeat(24)}${keyValue.slice(-4)}`
@@ -58,15 +120,10 @@ export function ApiKeyCard({
   };
 
   const handleRotate = async () => {
-    if (!showRotateConfirm) {
-      setShowRotateConfirm(true);
-      return;
-    }
+    if (!showRotateConfirm) { setShowRotateConfirm(true); return; }
     setRotating(true);
     setShowRotateConfirm(false);
-    try {
-      await onRotate?.();
-    } finally {
+    try { await onRotate?.(); } finally {
       setRotating(false);
       setRevealed(false);
     }
@@ -85,21 +142,13 @@ export function ApiKeyCard({
         <div className="flex items-center gap-2">
           <Key className="h-4 w-4 text-muted-foreground" />
           <span className="text-sm font-semibold text-foreground">{name}</span>
-          <span
-            className={cn(
-              "text-xs font-semibold px-1.5 py-0.5 rounded border",
-              envConfig[environment].className
-            )}
-          >
+          <span className={cn("text-xs font-semibold px-1.5 py-0.5 rounded border", envConfig[environment].className)}>
             {envConfig[environment].label}
           </span>
         </div>
         {onRevoke && (
-          <button
-            onClick={onRevoke}
-            className="text-xs text-muted-foreground hover:text-destructive transition-colors"
-          >
-            Révoquer
+          <button onClick={onRevoke} className="text-xs text-muted-foreground hover:text-destructive transition-colors">
+            {L.revoke}
           </button>
         )}
       </div>
@@ -110,32 +159,24 @@ export function ApiKeyCard({
           <code className="flex-1 text-foreground font-mono text-sm overflow-hidden text-ellipsis whitespace-nowrap">
             {revealed ? keyValue : maskedKey}
           </code>
-
           <div className="flex items-center gap-1 ml-2 flex-shrink-0">
             <button
               onClick={() => setRevealed(!revealed)}
               className="p-1.5 rounded hover:bg-white/10 text-muted-foreground hover:text-foreground transition-colors"
-              aria-label={revealed ? "Masquer la clé" : "Révéler la clé"}
+              aria-label={revealed ? L.hideKey : L.revealKey}
             >
               {revealed ? <EyeOff className="h-3.5 w-3.5" /> : <Eye className="h-3.5 w-3.5" />}
             </button>
             <button
               onClick={handleCopy}
               className="p-1.5 rounded hover:bg-white/10 text-muted-foreground hover:text-foreground transition-colors"
-              aria-label="Copier la clé"
+              aria-label={L.copyKey}
             >
-              {copied ? (
-                <Check className="h-3.5 w-3.5 text-primary" />
-              ) : (
-                <Copy className="h-3.5 w-3.5" />
-              )}
+              {copied ? <Check className="h-3.5 w-3.5 text-primary" /> : <Copy className="h-3.5 w-3.5" />}
             </button>
           </div>
         </div>
-
-        {copied && (
-          <p className="text-xs text-primary mt-1.5">Clé copiée dans le presse-papiers</p>
-        )}
+        {copied && <p className="text-xs text-primary mt-1.5">{L.copied}</p>}
       </div>
 
       {/* Metadata */}
@@ -143,24 +184,17 @@ export function ApiKeyCard({
         <div className="flex items-center gap-4 text-xs text-muted-foreground">
           {createdAt && (
             <span>
-              Créée le{" "}
-              {createdAt.toLocaleDateString("fr-FR", {
-                day: "2-digit",
-                month: "short",
-                year: "numeric",
-              })}
+              {L.createdOn}{" "}
+              {createdAt.toLocaleDateString(locale, { day: "2-digit", month: "short", year: "numeric" })}
             </span>
           )}
           {lastUsedAt && (
             <span>
-              Dernière utilisation :{" "}
-              {lastUsedAt.toLocaleDateString("fr-FR", {
-                day: "2-digit",
-                month: "short",
-              })}
+              {L.lastUsed}{" "}
+              {lastUsedAt.toLocaleDateString(locale, { day: "2-digit", month: "short" })}
             </span>
           )}
-          {!lastUsedAt && <span className="text-yellow-400/70">Jamais utilisée</span>}
+          {!lastUsedAt && <span className="text-yellow-400/70">{L.neverUsed}</span>}
         </div>
 
         {onRotate && (
@@ -168,12 +202,12 @@ export function ApiKeyCard({
             {showRotateConfirm && (
               <div className="flex items-center gap-1.5 text-xs text-yellow-400">
                 <AlertTriangle className="h-3 w-3" />
-                <span>Confirmer la rotation ?</span>
+                <span>{L.confirmRotation}</span>
                 <button
                   onClick={() => setShowRotateConfirm(false)}
                   className="text-muted-foreground hover:text-foreground ml-1"
                 >
-                  Annuler
+                  {L.cancel}
                 </button>
               </div>
             )}
@@ -188,7 +222,7 @@ export function ApiKeyCard({
               )}
             >
               <RefreshCw className={cn("h-3 w-3", rotating && "animate-spin")} />
-              {showRotateConfirm ? "Confirmer" : "Rotation"}
+              {showRotateConfirm ? L.confirm : L.rotate}
             </button>
           </div>
         )}
