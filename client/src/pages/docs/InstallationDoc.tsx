@@ -6,7 +6,8 @@ import { useTranslation } from "react-i18next";
 
 
 export default function InstallationDoc() {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
+  const isFr = i18n.language.startsWith("fr");
 
   return (
     <DocLayout>
@@ -69,9 +70,11 @@ export default function InstallationDoc() {
           </p>
           <PackageManagerBlock args="registry add @saaskit" />
           <p className="text-xs text-muted-foreground mt-3">
-            This adds{" "}
-            <code className="font-mono text-primary">https://saaskit-theta.vercel.app/r</code> to your{" "}
-            <code className="font-mono text-primary">components.json</code> registry list.
+            {isFr ? (
+              <>Ajoute <code className="font-mono text-primary">https://saaskit-theta.vercel.app/r</code> dans la liste des registres de votre <code className="font-mono text-primary">components.json</code>.</>
+            ) : (
+              <>This adds <code className="font-mono text-primary">https://saaskit-theta.vercel.app/r</code> to your <code className="font-mono text-primary">components.json</code> registry list.</>
+            )}
           </p>
         </section>
 
@@ -97,8 +100,10 @@ export default function InstallationDoc() {
             </div>
           </div>
           <p className="text-xs text-muted-foreground mt-3">
-            Replace <code className="font-mono text-primary">pricing-table</code> with any component name.
-            Browse all components in the sidebar.
+            {isFr
+              ? <> Remplacez <code className="font-mono text-primary">pricing-table</code> par n'importe quel nom de composant. Parcourez tous les composants dans la barre latérale.</>
+              : <> Replace <code className="font-mono text-primary">pricing-table</code> with any component name. Browse all components in the sidebar.</>
+            }
           </p>
         </section>
 
@@ -157,20 +162,43 @@ export function PricingPage() {
         {/* Fraunces font */}
         <section className="mb-8">
           <h2 className="text-sm font-semibold text-foreground uppercase tracking-widest mb-4">
-            Fraunces font — auto-loaded
+            {isFr ? "Police Fraunces — chargement automatique" : "Fraunces font — auto-loaded"}
           </h2>
           <p className="text-sm text-muted-foreground mb-3">
-            <code className="font-mono text-primary">PricingTable</code> and{" "}
-            <code className="font-mono text-primary">UpgradeModal</code> use the{" "}
-            <code className="font-mono text-primary">Fraunces</code> display font on prices and headings.
-            The font loads automatically from Google Fonts on first render — no setup required.
+            {isFr ? (
+              <>
+                <code className="font-mono text-primary">PricingTable</code> et{" "}
+                <code className="font-mono text-primary">UpgradeModal</code> utilisent la police{" "}
+                <code className="font-mono text-primary">Fraunces</code> sur les prix et titres.
+                La police se charge automatiquement depuis Google Fonts au premier rendu — aucune configuration requise.
+              </>
+            ) : (
+              <>
+                <code className="font-mono text-primary">PricingTable</code> and{" "}
+                <code className="font-mono text-primary">UpgradeModal</code> use the{" "}
+                <code className="font-mono text-primary">Fraunces</code> display font on prices and headings.
+                The font loads automatically from Google Fonts on first render — no setup required.
+              </>
+            )}
           </p>
           <p className="text-sm text-muted-foreground mb-3">
-            To replace it with your own font, set the{" "}
-            <code className="font-mono text-primary">--saaskit-font-display</code> CSS variable:
+            {isFr
+              ? <>Pour la remplacer, définissez la variable CSS <code className="font-mono text-primary">--saaskit-font-display</code> :</>
+              : <>To replace it with your own font, set the <code className="font-mono text-primary">--saaskit-font-display</code> CSS variable:</>
+            }
           </p>
           <CodeBlock
-            code={`/* globals.css — override the display font */
+            code={isFr
+              ? `/* globals.css — remplacer la police d'affichage */
+:root {
+  --saaskit-font-display: 'Inter';
+}
+
+/* Ou avec une variable Next.js font */
+:root {
+  --saaskit-font-display: var(--font-votre-police);
+}`
+              : `/* globals.css — override the display font */
 :root {
   --saaskit-font-display: 'Inter';
 }
@@ -183,19 +211,32 @@ export function PricingPage() {
             showLineNumbers
           />
           <p className="text-xs text-muted-foreground mt-2">
-            If <code className="font-mono">--saaskit-font-display</code> is not set, Fraunces is used as the default.
+            {isFr
+              ? <>Si <code className="font-mono">--saaskit-font-display</code> n'est pas défini, Fraunces est utilisé par défaut.</>
+              : <>If <code className="font-mono">--saaskit-font-display</code> is not set, Fraunces is used as the default.</>
+            }
           </p>
         </section>
 
         {/* Optional: saaskit theme */}
         <section className="mb-8">
           <h2 className="text-sm font-semibold text-foreground uppercase tracking-widest mb-4">
-            Optional — Saaskit emerald theme
+            {isFr ? "Optionnel — Thème emerald saaskit" : "Optional — Saaskit emerald theme"}
           </h2>
           <p className="text-sm text-muted-foreground mb-3">
-            Components use <code className="font-mono text-primary">var(--primary)</code> and adapt to your
-            existing theme. To get the exact emerald green seen on this site, add to your{" "}
-            <code className="font-mono text-primary">globals.css</code>:
+            {isFr ? (
+              <>
+                Les composants utilisent <code className="font-mono text-primary">var(--primary)</code> et s'adaptent à votre thème.
+                Pour obtenir le vert emerald de ce site, ajoutez dans votre{" "}
+                <code className="font-mono text-primary">globals.css</code> :
+              </>
+            ) : (
+              <>
+                Components use <code className="font-mono text-primary">var(--primary)</code> and adapt to your
+                existing theme. To get the exact emerald green seen on this site, add to your{" "}
+                <code className="font-mono text-primary">globals.css</code>:
+              </>
+            )}
           </p>
           <CodeBlock
             code={`@layer base {
