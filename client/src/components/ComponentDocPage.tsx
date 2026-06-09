@@ -10,6 +10,11 @@ import { CodeBlock, InstallBlock } from "./CodeBlock";
 import { cn } from "@/lib/utils";
 import { useTranslation } from "react-i18next";
 
+interface ExtraSection {
+  title: string;
+  content: React.ReactNode;
+}
+
 interface ComponentDocPageProps {
   name: string;
   category: string;
@@ -26,6 +31,7 @@ interface ComponentDocPageProps {
     required?: boolean;
   }>;
   notes?: string[];
+  extraSections?: ExtraSection[];
   prevDoc?: { name: string; path: string };
   nextDoc?: { name: string; path: string };
 }
@@ -40,6 +46,7 @@ export function ComponentDocPage({
   usageCode,
   propsTable,
   notes,
+  extraSections,
   prevDoc,
   nextDoc,
 }: ComponentDocPageProps) {
@@ -147,6 +154,16 @@ export function ComponentDocPage({
             </ul>
           </section>
         )}
+
+        {/* Extra sections (container, theme, labels, etc.) */}
+        {extraSections && extraSections.map((section, i) => (
+          <section key={i} className="mb-8">
+            <h2 className="text-sm font-semibold text-foreground uppercase tracking-widest mb-3">
+              {section.title}
+            </h2>
+            {section.content}
+          </section>
+        ))}
 
         {/* Navigation */}
         <div className="section-divider" />
