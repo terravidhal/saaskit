@@ -1,6 +1,7 @@
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import { createPortal } from "react-dom";
 import { Check, Zap, X } from "lucide-react";
 import { cn } from "@/lib/utils";
 
@@ -122,7 +123,9 @@ export function UpgradeModal({
   className,
 }: UpgradeModalProps) {
   useSaaskitFont();
-  if (!open) return null;
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => setMounted(true), []);
+  if (!open || !mounted) return null;
 
   const base = T[lang];
   const L = {
@@ -148,7 +151,7 @@ export function UpgradeModal({
       ? "bg-primary/15 text-primary border border-primary/30"
       : "bg-[oklch(0.75_0.15_80/15%)] text-[oklch(0.80_0.15_80)] border border-[oklch(0.75_0.15_80/30%)]";
 
-  return (
+  return createPortal(
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
       <div className="absolute inset-0 bg-black/60 backdrop-blur-sm" onClick={onClose} />
 
@@ -238,6 +241,7 @@ export function UpgradeModal({
           </div>
         </div>
       </div>
-    </div>
+    </div>,
+    document.body
   );
 }
