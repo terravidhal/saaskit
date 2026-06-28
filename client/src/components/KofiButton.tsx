@@ -193,13 +193,13 @@ export function KofiButton() {
         willChange: "transform, left, top",
         transformOrigin: "center center",
       }}
-      className="group flex items-center gap-1.5 px-3 py-2 rounded-full bg-primary text-sm font-semibold shadow-xl shadow-primary/40 select-none cursor-grab active:cursor-grabbing"
+      className="flex items-center gap-1.5 px-3 py-2 rounded-full bg-primary text-sm font-semibold shadow-xl shadow-primary/40 select-none cursor-grab active:cursor-grabbing"
       title="Support me on Ko-fi"
     >
       <img
         src="/images/kofi-logo.webp"
         alt="Ko-fi"
-        className="h-9 w-9 object-contain transition-transform duration-300 ease-out group-hover:scale-125"
+        className="h-9 w-9 object-contain animate-kofi-heartbeat"
         draggable={false}
       />
       <span className="text-white">Support me</span>

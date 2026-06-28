@@ -330,3 +330,15 @@
 .animate-fade-in-up {
   animation: fadeInUp 200ms ease-out forwards;
 }
+
+@keyframes kofi-heartbeat {
+  0%, 100% { transform: scale(1); }
+  15%       { transform: scale(1.28); }
+  30%       { transform: scale(1); }
+  45%       { transform: scale(1.18); }
+  60%       { transform: scale(1); }
+}
+
+.animate-kofi-heartbeat {
+  animation: kofi-heartbeat 2s ease-in-out infinite;
+}
