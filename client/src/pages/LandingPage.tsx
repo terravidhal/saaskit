@@ -5,6 +5,7 @@
  */
 
 import { Link } from "wouter";
+import { KofiButton } from "@/components/KofiButton";
 import { useTranslation, Trans } from "react-i18next";
 import { LanguageSwitcher } from "@/components/LanguageSwitcher";
 import { ThemeToggle } from "@/components/ThemeToggle";
@@ -20,7 +21,8 @@ import {
   Check,
   Star,
   Twitter,
-  MessageCircle,
+  Linkedin,
+  Mail,
   BookOpen,
 } from "lucide-react";
 
@@ -107,8 +109,7 @@ export default function LandingPage() {
           <Link href="/">
             <div className="flex items-center gap-2 cursor-pointer group">
               <div className="h-8 w-8 rounded-lg bg-primary/15 border border-primary/30 flex items-center justify-center">
-                {/* <Package className="h-4 w-4 text-primary" /> */}
-                <img className="h-4 w-4 text-primary"  src="/images/logos/logo-white.svg" alt="logo-green" />
+                <img className="h-4 w-4 text-primary" src="/images/logos/logo-white.svg" alt="logo-green" />
               </div>
               <span className="font-black text-lg font-[Fraunces] group-hover:text-primary transition-colors">Saaskit</span>
             </div>
@@ -372,13 +373,17 @@ export default function LandingPage() {
                 <Github className="h-3.5 w-3.5" />
                 {t("nav.github")}
               </a>
-              <a href="#" className="flex items-center gap-1.5 hover:text-foreground transition-colors">
+              <a href="https://x.com/TerraVidhal" target="_blank" rel="noopener noreferrer" className="flex items-center gap-1.5 hover:text-foreground transition-colors">
                 <Twitter className="h-3.5 w-3.5" />
                 Twitter
               </a>
-              <a href="#" className="flex items-center gap-1.5 hover:text-foreground transition-colors">
-                <MessageCircle className="h-3.5 w-3.5" />
-                Discord
+              <a href="https://linkedin.com/in/marsile-vidhal-elame-0543b5178" target="_blank" rel="noopener noreferrer" className="flex items-center gap-1.5 hover:text-foreground transition-colors">
+                <Linkedin className="h-3.5 w-3.5" />
+                LinkedIn
+              </a>
+              <a href="mailto:vidhalelame@gmail.com" className="flex items-center gap-1.5 hover:text-foreground transition-colors">
+                <Mail className="h-3.5 w-3.5" />
+                Email
               </a>
             </div>
             <div className="text-xs text-muted-foreground">
@@ -387,6 +392,7 @@ export default function LandingPage() {
           </div>
         </div>
       </footer>
+      <KofiButton />
     </div>
   );
 }

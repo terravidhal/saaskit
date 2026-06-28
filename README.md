@@ -2,6 +2,10 @@
 
 **The shadcn/ui registry for B2B SaaS products.**
 
+## Aperçu
+
+![Saaskit Home](./assets/saaskit_home.png)
+
 10 essential components — pricing, trial, usage, onboarding, billing — ready to use, installable in one command.
 
 ```bash
